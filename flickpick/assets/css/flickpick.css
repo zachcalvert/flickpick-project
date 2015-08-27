@@ -1,0 +1,64 @@
+/*! project specific CSS goes here. */
+
+body {
+	padding-top: 60px;
+	font-family: "Lucida Sans Unicode";
+    background: #E1E3E4;
+    margin:  0px;
+}
+
+.page-content {
+	padding: 0px 20px;
+}
+
+
+
+
+/* gallery widget */
+
+.gallery-widget {
+    width: 100%;
+    text-align: center;
+    position:  relative;
+    overflow: hidden;
+}
+
+.gallery-item {
+    background-color: inherit;
+    /* float: left; */
+    border: none;
+    text-align: center;
+    font-weight: bold;
+    font-size: 11px;
+    padding: 10px;
+    width: 160px;
+    margin: 0 auto 25px 0;
+    display: inline-block;
+}
+
+.gallery-title-only-container {
+    position:relative;
+    top:-60px;
+}
+
+.gallery-title-only-link {
+    font-size:18px !important;
+}
+
+.gallery-item-title {
+    font-size:14px;
+    height: 36px;
+    margin: 8px 0 3px 0;
+    position:relative;
+    overflow: hidden;
+}
+
+
+.gallery-item-image-wrap {
+    height: 240px;
+}
+
+.gallery-item-image {
+    height:auto;
+    width: 100%;
+}

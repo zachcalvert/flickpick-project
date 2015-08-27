@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>
+      {% block title %}FlickPick{% endblock %}
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/flickpick.css' %}" rel="stylesheet">
+    {% block extra_css %}{% endblock %}
+  </head>
+
+  <body>
+    {% block topnav %}
+      <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'home' %}">FlickPick</a>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="{% url 'browse' %}">Browse</a></li>
+              <li><a href="{% url 'user_profile' %}">Account</a></li>
+              <li><a href="{% url 'about' %}">About</a></li>
+              <li><a href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    {% endblock %}
+
+    <div class="page-content">
+      <h1>
+        {% block page_title %}{% endblock %}
+      </h1>
+
+      {% block content %} 
+        <h4>Let's watch some shite</h4>
+      {% endblock %}  
+    </div>
+    
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap.min.js" type="application/javascript"></script>
+    <script src="{{ STATIC_URL }}js/flickpick.js" type="application/javascript"></script>
+    {% block extra_js %}{% endblock %}
+  </body>
+</html>

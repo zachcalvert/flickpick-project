@@ -1,0 +1,31 @@
+<div class="movie-gallery">
+    <h2>{{ Action }}</h2>
+    <div class="gallery-widget">
+        <div id="gallery-widget-{{ widget.id }}">
+            {% for movie in movies %}
+                {% if movie.poster_url %}
+                    <div class="gallery-item">
+                        <div class="gallery-item-image-wrap">
+                            <a href="#"><img class="gallery-item-image"
+                                                                      src="{{ movie.poster_url }}"
+                                                                      alt="{{ movie.title }} image"></a>
+                        </div>
+                         {% if movie.title %}
+                             <p class="gallery-item-title">{{ movie.title }}</p>
+                         {% endif %}
+                    </div>
+                {% else %}
+                    <div class="gallery-item">
+                        <div class="gallery-title-only-container">
+                            <a class="gallery-title-only-link" href="#">
+                            {% if movie.title %}
+                                <strong>{{ movie.title }}</strong>
+                            {% endif %}
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>

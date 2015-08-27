@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	Browse
+{% endblock %}
+
+{% block page_title %}{% endblock %}
+
+{% block content %} 
+	<h3>Action</h3>
+	{% with action_movies as movies %}
+		{% include 'widgets/gallery.html' %}
+	{% endwith %}
+
+	<h3>Comedies</h3>
+	{% with comedies as movies %}
+		{% include 'widgets/gallery.html' %}
+	{% endwith %}
+
+	<h3>Dramas</h3>
+	{% with dramas as movies %}
+		{% include 'widgets/gallery.html' %}
+	{% endwith %}
+
+	<h3>Romance</h3>
+	{% with romance_movies as movies %}
+		{% include 'widgets/gallery.html' %}
+	{% endwith %}
+
+{% endblock %}  

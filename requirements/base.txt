@@ -1,0 +1,9 @@
+Django<1.9
+MySQL-python<2.0
+requests<2.5.2
+django_extensions<1.5
+beautifulsoup4<4.3.3
+djangorestframework<3.0.6
+django_filter<0.9.3
+django-debug-toolbar==1.2.1
+django-grappelli<2.7

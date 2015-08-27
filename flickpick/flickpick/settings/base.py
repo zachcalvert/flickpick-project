@@ -198,6 +198,7 @@ DJANGO_APPS = (
 LOCAL_APPS = (
     'accounts',
     'movies',
+    'viewing',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

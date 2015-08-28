@@ -1,5 +1,11 @@
 from django.db import models
 
+class Genre(models.Model):
+	name = models.CharField(max_length=100)
+
+	def __unicode__(self):
+		return self.name
+
 class Director(models.Model):
 	name = models.CharField(max_length=100)
 
@@ -35,12 +41,13 @@ class Movie(models.Model):
 	year = models.CharField(max_length=4)
 	released = models.DateField(null=True, blank=True)
 	rated = models.CharField(max_length=10, default='N/A')
-	genre = models.CharField(max_length=50)
-	director = models.ForeignKey(Director)
-	writers = models.ManyToManyField(Writer)
-	actors = models.ManyToManyField(Actor)
 	plot = models.CharField(max_length=300, null=True, blank=True)
 	poster_url = models.URLField(null=True, blank=True)
+	
+	genres = models.ManyToManyField(Genre)
+	directors = models.ManyToManyField(Director)
+	writers = models.ManyToManyField(Writer)
+	actors = models.ManyToManyField(Actor)
 	
 	imdb_id = models.CharField(max_length=10)
 	imdb_rating = models.DecimalField(max_digits=2, decimal_places=1, default=0)

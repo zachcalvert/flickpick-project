@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
-from models import Movie
+from models import Movie, Genre
 
 # Create your views here.
 
@@ -19,16 +19,20 @@ class BrowseView(TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(BrowseView, self).get_context_data(**kwargs)
 
-		action_movies = Movie.objects.filter(genre__contains='Adventure')
+		adventure = Genre.objects.get(name='Adventure')
+		action_movies = Movie.objects.filter(genres__in=[adventure.id])
 		context['action_movies'] = action_movies
 
-		dramas = Movie.objects.filter(genre__contains='Drama')
+		drama = Genre.objects.get(name='Drama')
+		dramas = Movie.objects.filter(genres__in=[drama.id])
 		context['dramas'] = dramas
 
-		comedies = Movie.objects.filter(genre__contains='Comedy')
+		comedy = Genre.objects.get(name='Comedy')
+		comedies = Movie.objects.filter(genres__in=[comedy.id])
 		context['comedies'] = comedies
 
-		romance_movies = Movie.objects.filter(genre__contains='Romance')
+		romance = Genre.objects.get(name='Romance')
+		romance_movies = Movie.objects.filter(genres__in=[romance.id])
 		context['romance_movies'] = romance_movies
 
 		return context

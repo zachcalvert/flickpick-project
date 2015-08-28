@@ -62,3 +62,28 @@ body {
     height:auto;
     width: 100%;
 }
+
+/*row focus widget*/
+
+.slider-control.prev {
+    text-align: right;
+    position: absolute;
+    top: 30%;
+    left: 0;
+}
+
+.slider-control {
+    top: 40%;
+}
+
+.slider-control.next {
+    text-align: left;
+    position: absolute;
+    top: 30%;
+    right: 0px;
+}
+
+.carousel i {
+    font-size:32px;
+    color: #000;
+}

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django import forms
 
-from models import Movie, Director, Actor, Writer
+from models import Movie, Director, Actor, Writer, Genre
 
 class MovieForm(forms.ModelForm):
     notes = forms.CharField(widget=forms.Textarea)
@@ -19,8 +19,8 @@ class MovieAdmin(admin.ModelAdmin):
 		'year',
 		'released',
 		'rated',
-		'genre',
-		'director',
+		'genres',
+		'directors',
 		'plot',
 		'poster_url',
 		'imdb_id',
@@ -31,9 +31,12 @@ class MovieAdmin(admin.ModelAdmin):
 		'on_hulu',
 	)
 
-	list_display = ('title', 'year', 'director')
+	list_display = ('title', 'year', 'plot',)
 	ordering = ('title',)
 	form = MovieForm
 
+class GenreAdmin(admin.ModelAdmin):
+	list_display = ('name',)
 
+admin.site.register(Genre, GenreAdmin)
 admin.site.register(Movie, MovieAdmin)

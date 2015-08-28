@@ -12,6 +12,13 @@
 
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/flickpick.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+    <script src="{{ STATIC_URL }}js/jquery-2.1.4.min.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap.min.js" type="application/javascript"></script>
+    <script src="{{ STATIC_URL }}js/flickpick.js" type="application/javascript"></script>
+    <script src="{{ STATIC_URL }}js/jquery.bxslider.js" type="application/javascript"></script>
+
     {% block extra_css %}{% endblock %}
   </head>
 
@@ -34,7 +41,7 @@
               <li><a href="{% url 'about' %}">About</a></li>
               <li><a href="{% url 'logout' %}">Logout</a></li>
             </ul>
-          </div><!--/.nav-collapse -->
+          </div>
         </div>
       </div>
     {% endblock %}
@@ -47,11 +54,9 @@
       {% block content %} 
         <h4>Let's watch some shite</h4>
       {% endblock %}  
+      {% block extra_body_content %}{% endblock %}
     </div>
-    
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="{{ STATIC_URL }}js/bootstrap.min.js" type="application/javascript"></script>
-    <script src="{{ STATIC_URL }}js/flickpick.js" type="application/javascript"></script>
+
     {% block extra_js %}{% endblock %}
   </body>
 </html>

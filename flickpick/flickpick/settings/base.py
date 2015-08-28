@@ -198,6 +198,7 @@ DJANGO_APPS = (
 LOCAL_APPS = (
     'accounts',
     'movies',
+    'pages',
     'viewing',
 )
 

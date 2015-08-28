@@ -24,7 +24,6 @@ def make_movie(title, year=None, genre=None, director=None, actors=None,
 	imdb_id = "imdb_id"
 	imdb_rating=10.0
 
-	movie = Movie.objects.create(title=title, year=year, genre=genre, director=director,
-		plot=plot, poster_url=poster_url, imdb_id=imdb_id)
+	movie = Movie.objects.create(title=title, year=year, plot=plot, poster_url=poster_url, imdb_id=imdb_id)
 
     return Movie.objects.get(id=movie.id)

@@ -65,6 +65,9 @@ body {
 
 /*row focus widget*/
 
+.bx-wrapper {
+    margin: 0 20px!important;
+}
 .slider-control.prev {
     text-align: right;
     position: absolute;

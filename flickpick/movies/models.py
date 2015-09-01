@@ -59,3 +59,4 @@ class Movie(models.Model):
 
 	def __unicode__(self):
 		return "{0} ({1})".format(self.title, self.year)
+		

@@ -31,6 +31,12 @@ class Command(BaseCommand):
                 imdb_rating = 8.0
                 poster_url = d.get("Poster")
 
+                if plot is not None:
+                    plot = plot[:299]
+
+                if title is None:
+                    continue
+
                 movie = Movie.objects.create(title=title, year=year, rated=rated, 
                     plot=plot, notes=notes, imdb_id=imdb_id, imdb_rating=imdb_rating, poster_url=poster_url)
                 print('added movie {} to db'.format(title))

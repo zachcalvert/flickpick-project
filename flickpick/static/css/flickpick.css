@@ -61,7 +61,7 @@ body {
 /*row focus widget*/
 
 .bx-wrapper {
-    margin: 0 20px!important;
+    margin: 0 auto!important;
 }
 .slider-control.prev {
     text-align: right;
@@ -84,4 +84,15 @@ body {
 .carousel i {
     font-size:32px;
     color: #000;
+}
+
+
+
+#genres-list {
+    list-style: none;
+    margin: 10px 0 20px;
+}
+#genres-list li {
+    float: left;
+    margin-right: 10px;
 }

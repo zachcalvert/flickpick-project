@@ -1,7 +1,12 @@
 from django.db import models
 
+from django.core.urlresolvers import reverse
+
 class Genre(models.Model):
 	name = models.CharField(max_length=100)
+
+	def get_absolute_url(self):
+		return reverse('genre_browse', kwargs={'genre_id': self.pk})
 
 	def __unicode__(self):
 		return self.name

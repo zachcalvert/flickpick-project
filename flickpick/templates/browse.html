@@ -7,6 +7,12 @@
 {% block page_title %}{% endblock %}
 
 {% block content %} 
+	<ul id="genres-list">
+		{% for genre in genres %}
+		<li><a href="{{ genre.get_absolute_url }}">{{ genre }}</a></li>
+		{% endfor %}
+	</ul>
+
 	<h3>Action</h3>
 	{% with action_movies as movies %}
 		{% include 'widgets/row_focus.html' %}

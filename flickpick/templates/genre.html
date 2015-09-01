@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	{{ Genre }}
+{% endblock %}
+
+{% block page_title %}{% endblock %}
+
+{% block content %} 
+
+	<h3>Latest Releases in {{ genre }}</h3>
+	{% include 'widgets/row_focus.html' %}
+
+	<h3>Award Winners</h3>
+	{% with award_winners as movies %}
+		{% include 'widgets/gallery.html' %}
+	{% endwith %}
+
+{% endblock %}  

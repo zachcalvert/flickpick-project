@@ -13,6 +13,7 @@ urlpatterns = [
 
     url(r'^accounts/', include('accounts.urls')),
     url(r'^browse/', include('movies.urls')),
+    url(r'^api/', include('pages.api_urls')),
     url(r'^about/', login_required(TemplateView.as_view(template_name='about.html')), name="about"),
 
     # admin stuff

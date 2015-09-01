@@ -1,0 +1,10 @@
+"page": {{ page.name }},
+
+
+"widgets": {
+{% for widget in page.widgets %}
+
+	"widget": {{ widget.name }},
+
+{% endfor %}
+}

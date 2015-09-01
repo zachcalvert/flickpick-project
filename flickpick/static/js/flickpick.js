@@ -1,5 +1,3 @@
-/* Project specific Javascript goes here. */
-
 /* toggle active flags on top nav menu */
 $(document).ready(function(){
     $('.navbar-collapse li').click(function() {

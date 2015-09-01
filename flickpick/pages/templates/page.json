@@ -5,9 +5,9 @@
 	{% for widget in page.widgets %}
 
 		"widget": {{ widget.name }},
-		"limit": {{ widget.limit }},
-		"display_type": {{ widget.display_type }},
-		{% for source in widget.sources %}
+		"limit": {{ widget.movieswidget.limit }},
+		"display_type": {{ widget.movieswidget.display_type }},
+		{% for source in widget.movieswidget.sources %}
 			"source": {{ source }},
 		{% endfor %}
 

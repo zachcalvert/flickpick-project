@@ -16,7 +16,7 @@ class Director(models.Model):
 
 	@property
 	def movies(self):
-		return Movie.objects.filter(director=self)
+		return Movie.objects.filter(directors__contains=self)
 
 	def __unicode__(self):
 		return self.name

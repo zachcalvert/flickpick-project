@@ -51,6 +51,16 @@
         {% block page_title %}{% endblock %}
       </h1>
 
+      {% block messages %}
+        {% if messages %}
+          <ul class="messages">
+              {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+              {% endfor %}
+          </ul>
+      {% endif %}
+      {% endblock %}
+
       {% block content %} 
         <h4>Let's watch some shite</h4>
       {% endblock %}  

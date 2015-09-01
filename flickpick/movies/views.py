@@ -1,7 +1,15 @@
+import json
+
+from django.http import HttpResponse
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, View
+from django.contrib import messages
+from django.utils.translation import ugettext_lazy as _
+from django.views.decorators.csrf import csrf_protect
+from django.contrib.auth.models import User
 
 from models import Movie, Genre
+from viewing.models import Viewing
 
 # Create your views here.
 
@@ -11,6 +19,32 @@ def logout(request, template_name='registration/logged_out.html'):
 	"""
 	logout(request)
 	return redirect('site_base.html')
+
+
+class SeenMovieView(View):
+
+	def dispatch(self, request):
+		if request.is_ajax():
+			user = request.user
+
+			body = json.loads(request.body)
+
+
+
+			movie_id = body.get('movie').strip('movie-')
+			print(movie_id)
+			movie = Movie.objects.get(id=movie_id)
+
+			viewing, created = Viewing.objects.get_or_create(user=user, movie=movie)
+
+			if created:
+				d = {'success': 'true', 'viewing': '{0} has seen {1}'.format(user, movie)}
+				messages.add_message(self.request, messages.SUCCESS,
+					_('{} added to your reel.'.format(movie.title)))
+			else:
+				d = {'success': 'false'}
+
+			return HttpResponse(json.dumps(d))
 
 
 class BrowseView(TemplateView):

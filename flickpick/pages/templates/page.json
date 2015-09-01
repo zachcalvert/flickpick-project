@@ -1,10 +1,15 @@
 "page": {{ page.name }},
 
 
-"widgets": {
-{% for widget in page.widgets %}
+	"widgets": {
+	{% for widget in page.widgets %}
 
-	"widget": {{ widget.name }},
+		"widget": {{ widget.name }},
+		"limit": {{ widget.limit }},
+		"display_type": {{ widget.display_type }},
+		{% for source in widget.sources %}
+			"source": {{ source }},
+		{% endfor %}
 
-{% endfor %}
+	{% endfor %}
 }

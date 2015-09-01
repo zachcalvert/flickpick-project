@@ -160,6 +160,7 @@ class Viewing(models.Model):
     """
     user = models.ForeignKey(User, related_name='seen_movies', null=True)  # null user stands in for anonymous permissions
     movie = models.ForeignKey(Movie, related_name='viewers')
+    rating = models.IntegerField(default=0)
     timestamp = models.DateTimeField(auto_now_add=True)
     
     objects = ViewingManager()

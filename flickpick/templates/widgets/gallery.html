@@ -6,12 +6,12 @@
                 {% if movie.poster_url %}
                     <div class="gallery-item">
                         <div class="gallery-item-image-wrap">
-                            <a href="#"><img class="gallery-item-image"
+                            <a href="#"><img class="movie-image"
                                                                       src="{{ movie.poster_url }}"
                                                                       alt="{{ movie.title }} image"></a>
                         </div>
                          {% if movie.title %}
-                             <p class="gallery-item-title">{{ movie.title }}</p>
+                             <p class="movie-title">{{ movie.title }} - ({{ movie.year }})</p>
                          {% endif %}
                     </div>
                 {% else %}

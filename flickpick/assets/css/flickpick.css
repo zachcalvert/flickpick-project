@@ -11,9 +11,6 @@ body {
 	padding: 0px 20px;
 }
 
-
-
-
 /* gallery widget */
 
 .gallery-widget {
@@ -31,7 +28,7 @@ body {
     font-weight: bold;
     font-size: 11px;
     padding: 10px;
-    width: 160px;
+    width: 200px;
     margin: 0 auto 25px 0;
     display: inline-block;
 }
@@ -45,26 +42,27 @@ body {
     font-size:18px !important;
 }
 
-.gallery-item-title {
-    font-size:14px;
-    height: 36px;
-    margin: 8px 0 3px 0;
-    position:relative;
-    overflow: hidden;
-}
-
-
 .gallery-item-image-wrap {
     height: 240px;
 }
 
-.gallery-item-image {
-    height:auto;
-    width: 100%;
+.movie-title {
+    font-size:14px;
+    height: 36px;
+    margin: 15px 0 3px 0;
+    position:relative;
+    overflow: hidden;
+}
+
+.movie-image {
+    height:250px;
 }
 
 /*row focus widget*/
 
+.bx-wrapper {
+    margin: 0 20px!important;
+}
 .slider-control.prev {
     text-align: right;
     position: absolute;

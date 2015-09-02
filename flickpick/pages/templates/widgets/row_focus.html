@@ -1,12 +1,11 @@
 <div class="page-row-focus">
     <h2>{{ widget.name }}</h2>
-    <div class="page-row">
         <div class="carousel">
             <div id="prev-items-{{ widget.id }}" class="slider-control prev"></div>
             <div id="widget-row-{{ widget.id }}" class="widget-row-focus">
                 {% for movie in widget.items %}
                     <div widget-item>
-                        <a href="#">
+                        <a href="{{ movie.profile_url }}">
                             <img class="movie-image"
                                 src="{{ movie.image.url }}"
                                 alt="{{ movie.title }} image">
@@ -17,7 +16,6 @@
             <div id="next-items-{{ widget.id }}" class="slider-control next"></div>
             <div class="cheat"></div>
         </div>
-    </div>
 </div>
 <script type="text/javascript">
     $(document).ready(function () {

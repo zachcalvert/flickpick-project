@@ -4,6 +4,9 @@
     {{ page.name|safe }}
 {% endblock %}
 
+{% block messages %}
+    {{ block.super }}
+{% endblock %}
 
 {% block content %}
     <span>

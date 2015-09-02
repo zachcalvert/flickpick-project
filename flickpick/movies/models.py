@@ -64,4 +64,7 @@ class Movie(models.Model):
 
 	def __unicode__(self):
 		return "{0} ({1})".format(self.title, self.year)
+
+	def get_absolute_url(self):
+		return reverse('movie_profile', kwargs={'movie_id': self.pk})
 		

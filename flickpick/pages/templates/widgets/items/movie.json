@@ -9,7 +9,7 @@
     "released": "{{ item.released }}",
     "rated": "{{ item.rated }}",
     "path": "{{ item.get_api_url }}",
-    "profile_url": "{{ item.todo }}",
+    "profile_url": "{{ item.get_absolute_url }}",
     "plot":"{{ item.plot|escapejs }}",
     "directors":
       [

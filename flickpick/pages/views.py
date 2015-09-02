@@ -10,6 +10,7 @@ from django.http import Http404
 
 
 from models import Page
+from movies.models import Movie
 
 
 class PageView(TemplateView):
@@ -72,3 +73,12 @@ class WebPageWrapperView(TemplateView):
         context = super(WebPageWrapperView, self).get_context_data(**kwargs)
         context[self.context_object_name] = self.page_data
         return context
+
+class MovieProfileView(TemplateView):
+    template_name = "pages/movie_profile.html"
+
+    def get_context_data(self, movie_id, **kwargs):
+        context = super(MovieProfileView, self).get_context_data(**kwargs)
+        context['movie'] = Movie.objects.get(id=movie_id)
+        return context
+

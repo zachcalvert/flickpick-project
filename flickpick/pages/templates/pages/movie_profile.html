@@ -1,0 +1,9 @@
+{% extends 'pages/page.html' %}
+
+{% block content %}
+	
+	{{ movie.title|safe }}
+	<img src="{{ movie.poster_url }}">
+	{{ movie.plot }}
+	
+{% endblock %}

@@ -1,0 +1,46 @@
+{% load page_tags %}
+{
+    "id": "{{ item.id }}",
+    "title": "{{ item.title }}",
+    {% if item.poster_url %}
+        {% include 'widgets/image.json' with url=item.poster_url %},
+    {% endif %}
+    "year": "{{ item.year }}",
+    "released": "{{ item.released }}",
+    "rated": "{{ item.rated }}",
+    "path": "{{ item.get_api_url }}",
+    "profile_url": "{{ item.todo }}",
+    "plot":"{{ item.plot|escapejs }}",
+    "directors":
+      [
+        {% for director in item.director_set.all %}
+         { "name": "{{ director.name }}",
+           "path": "{% url 'director' director.id %}"
+         }{%  loopcomma %}
+        {%  endfor %}
+        ],
+    "actors":
+      [
+        {% for actor in item.actor_set.all %}
+         { "name": "{{ actor.name }}",
+           "path": "{% url 'actor' actor.id %}"
+         }{%  loopcomma %}
+        {%  endfor %}
+        ],
+    "writers":
+      [
+        {% for writer in item.writer_set.all %}
+         { "name": "{{ writer.name }}",
+           "path": "{% url 'writer' writer.id %}"
+         }{%  loopcomma %}
+        {%  endfor %}
+        ],
+   "genres":
+      [
+        {% for genre in item.genre_set.all %}
+         { "name": "{{ genre.name }}",
+           "path": "{% url 'genre' genre.id %}"
+         }{%  loopcomma %}
+        {%  endfor %}
+        ]
+}

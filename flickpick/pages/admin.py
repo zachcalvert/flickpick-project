@@ -19,5 +19,4 @@ class WidgetAdmin(admin.ModelAdmin):
 
 	
 admin.site.register(MoviesWidget, WidgetAdmin)
-
 admin.site.register(Page, PageAdmin)

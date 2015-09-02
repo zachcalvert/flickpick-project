@@ -372,6 +372,7 @@ class MoviesWidget(CatalogGroupWidget):
     source_director = models.ForeignKey(Director, null=True, blank=True)
     source_actor = models.ForeignKey(Actor, null=True, blank=True)
     source_writer = models.ForeignKey(Writer, null=True, blank=True)
+    source_year = models.CharField(max_length=4, null=True, blank=True)
 
     class Meta:
         verbose_name = "group of movies"
@@ -399,15 +400,15 @@ class MoviesWidget(CatalogGroupWidget):
         if self.source_writer:
             movies = movies.filter(writers__in=[self.source_writer.id])
         if self.source_year:
-            movies = movies.filter(year=source.year)
+            movies = movies.filter(year=source_year)
 
         if self.new_releases:
             if self.new_releases_window is not None:
                 window_start = datetime.now() - timedelta(days=int(self.new_releases_window))
                 movies = movies.filter(year__gt=window_start)
-            books = books.order_by('-year')
+            movies = movies.order_by('-year')
 
-        return books.distinct()
+        return movies.distinct()
 
     def clean(self):
         super(MoviesWidget, self).clean()
@@ -416,14 +417,6 @@ class MoviesWidget(CatalogGroupWidget):
 
     def limited_items(self):
         items = super(MoviesWidget, self).limited_items()
-
-        for item in items:
-            if isinstance(item, Movie):
-                context = self.source
-                if not isinstance(context, MovieGroupModel):
-                    context = None
-                item.display = item.profile.display_name(context)
-
         return items
 
     def see_all_url_fields(self):

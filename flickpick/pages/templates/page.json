@@ -1,15 +1,15 @@
-"page": {{ page.name }},
+{% load page_tags %}
 
+{
+	"id": "{{ page.id }}", 
+	"page": "{{ page.name }}",
 
-	"widgets": {
-	{% for widget in page.widgets %}
-
-		"widget": {{ widget.name }},
-		"limit": {{ widget.movieswidget.limit }},
-		"display_type": {{ widget.movieswidget.display_type }},
-		{% for source in widget.movieswidget.sources %}
-			"source": {{ source }},
+	"widgets": [
+		{% for widget in page.widgets %}
+			{% with widget.movieswidget as widget %}
+				{% include widget.template_name %}
+			{% endwith %}
+			{% loopcomma %}
 		{% endfor %}
-
-	{% endfor %}
+	]
 }

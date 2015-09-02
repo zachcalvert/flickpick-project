@@ -1,0 +1,18 @@
+{% load display_tags %}
+<div class="profile approved">
+    {% if item.image.url %}
+    <a class="cover " href="{% url 'book_wrapper' item.id %}" title="{{ item.name }}">
+        <span class="cover-image">
+            <span class="cover-image-wrapper">
+                <img src="{{ item.image.url|sized_image:size }}" alt="{{ item.name }} image">
+            </span>
+        </span>
+    </a>
+    {% else %}
+    <div class="row-title-only-container">
+        <a class="row-title-only-link" href="{{ item.path | wrapped_url }}">
+            <strong>{{ item.title }}</strong>
+         </a>
+     </div>
+    {% endif %}
+</div>

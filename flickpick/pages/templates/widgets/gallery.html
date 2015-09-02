@@ -1,0 +1,66 @@
+<div class="movie-gallery">
+    <h2>{{ widget.name }}</h2>
+    <div class="gallery-widget" id="gallery-widget-{{ widget.id }}">
+        {% for movie in widget.items %}
+            {% if movie.image.url %}
+                <div class="gallery-item" id="movie-{{ movie.id }}">
+                    <div class="gallery-item-image-wrap">
+                        <a href="#"><img class="movie-image"
+                                                                  src="{{ movie.image.url }}"
+                                                                  alt="{{ movie.title }} image"></a>
+                    </div>
+                     {% if movie.title %}
+                         <p class="movie-title">{{ movie.title }} - ({{ movie.year }})</p>
+                     {% endif %}
+                     <div class="seen-it">
+                        <a class="seen-it-link" href="javascript:;">I've Seen This!</a>
+                    </div>
+                </div>
+            {% else %}
+                <div class="gallery-item">
+                    <div class="gallery-title-only-container">
+                        <a class="gallery-title-only-link" href="#">
+                        {% if movie.title %}
+                            <strong>{{ movie.title }}</strong>
+                        {% endif %}
+                            <div class="seen-it">
+                                <a class="seen-it-link" href="javascript:;">I've Seen This!</a>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function addSeenMovie(movie_id) {
+        var params = {movie: movie_id};
+        console.log(params)
+        $.ajax({
+            url: '{% url "user_seen_movie" %}',
+            type: 'POST',
+            data: JSON.stringify(params),
+            contentType: 'application/json',
+            dataType: 'text',
+            processData: true,
+            success: function(response) {
+                console.log(response)
+                var response_data = JSON.parse(response);
+                
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        });
+    };
+
+
+    $('.seen-it-link').click(function() {
+        var movie_id = $(this).parent().parent().attr('id');
+        addSeenMovie(movie_id);
+    });
+
+</script>

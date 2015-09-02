@@ -28,11 +28,8 @@ class SeenMovieView(View):
 			user = request.user
 
 			body = json.loads(request.body)
-
-
-
 			movie_id = body.get('movie').strip('movie-')
-			print(movie_id)
+			
 			movie = Movie.objects.get(id=movie_id)
 
 			viewing, created = Viewing.objects.get_or_create(user=user, movie=movie)

@@ -7,6 +7,10 @@ body {
     margin:  0px;
 }
 
+ul {
+    list-style: none;
+}
+
 .page-content {
 	padding: 0px 20px;
 }

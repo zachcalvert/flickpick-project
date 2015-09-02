@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+    {{ page.name|safe }}
+{% endblock %}
+
+
+{% block content %}
+    <span>
+        <ul id="widgets-list">
+            {% for widget in page.widgets %}
+                <li class="widget">
+                    {% if widget.template_name %}
+                        {% include widget.template_name %}
+                    {% else %}
+                        <pre>
+                            {{ widget }}
+                        </pre>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </span>
+{% endblock %}

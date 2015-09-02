@@ -1,0 +1,7 @@
+{% load darkhorse %}
+{
+    "name": "{{ item.name|escapejs }}",
+    "path": "{{ item.get_api_url }}",
+    {% include 'widgets/image.json' with url=item.image.url ts=item.image_timestamp placeholder_color=item.image_avg_color aspect_ratio=item.image_aspect_ratio %},
+    "credit" : "{{ item.roles|human_join }}"
+}

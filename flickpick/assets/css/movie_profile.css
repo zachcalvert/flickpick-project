@@ -1,0 +1,95 @@
+/* movie profile page */
+#movie-profile {
+    float: left;
+    display: inline-block;
+    list-style: none;
+}
+
+#movie-cover-image {
+    float:left;
+    margin: 0 15px 0 0;
+    width: 320px;
+}
+
+#movie-title {
+    color: #000;
+}
+
+
+#movie-watch-now {
+    float:right;
+}
+
+.movie-description {
+    width: 80%;
+}
+
+/* mobile movie profile */
+
+.mobile-movie-menus {
+    display:none;
+}
+
+.mobile-movie-info-target {
+    display: none;
+}
+
+
+/* ----------- Mobile movie profile ----------- */
+@media screen and (max-width: 640px) {
+
+    .mobile-movie-info-trigger a {
+        padding: 24px 16px;
+        margin: 0 0 13px 0;
+        width: 100%;
+        font-size: 36px;
+        background-color: #000;
+        position: relative;
+        overflow:hidden;
+        color:#FFF;
+        text-transform: uppercase;
+        font-weight: bold;
+        display: block;
+        box-sizing: border-box;
+    }
+
+    .mobile-movie-info-trigger a:hover {
+        color: #FFF;
+    }
+
+    .mobile-movie-info-trigger i {
+        float: right;
+    }
+
+    .mobile-movie-info-target {
+        font-size:16px;
+        margin: 10px 0 10px 0;
+        position: relative;
+        overflow: hidden;
+    }
+
+    #movie-cover-image {
+        width: 100%;
+        text-align: center;
+        float: none;
+    }
+
+    #movie-cover {
+        width: 100%;
+    }
+
+    #movie-title {
+        font-size: 20px;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .hidden-on-mobile {
+        display: none;
+    }
+
+    .mobile-movie-menus {
+        display: inline-block;
+        width: 100%;
+    }
+}

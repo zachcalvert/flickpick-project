@@ -4,17 +4,19 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView
 
+from pages.views import SlugPageWrapperView
+
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = [
-    url(r'^$', login_required(TemplateView.as_view(template_name='base.html')), name="home"),
+    url(r'^$', SlugPageWrapperView.as_view(page_slug='featured'), name='featured_pages_view'),
+    url(r'^api/', include('pages.api_urls')),
+    url(r'^pages/', include('pages.urls')),
 
     url(r'^accounts/', include('accounts.urls')),
     url(r'^browse/', include('movies.urls')),
-    url(r'^api/', include('pages.api_urls')),
-    url(r'^pages/', include('pages.urls')),
     url(r'^about/', login_required(TemplateView.as_view(template_name='about.html')), name="about"),
 
     # admin stuff

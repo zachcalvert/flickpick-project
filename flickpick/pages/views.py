@@ -74,6 +74,21 @@ class WebPageWrapperView(TemplateView):
         context[self.context_object_name] = self.page_data
         return context
 
+
+class SlugPageWrapperView(WebPageWrapperView):
+    page_slug = None
+
+    def get_api_url(self, page_slug=None, *args, **kwargs):
+        page_slug = page_slug or self.page_slug
+        return reverse('page', kwargs={'page_slug': page_slug}, urlconf='pages.api_urls')
+
+    def get_context_data(self, **kwargs):
+        context = super(SlugPageWrapperView, self).get_context_data(**kwargs)
+        if kwargs.get('page_slug') == 'series':
+            context['all_series'] = Series.objects.filter_approved()
+        return context
+
+
 class MovieProfileView(TemplateView):
     template_name = "pages/movie_profile.html"
 

@@ -118,7 +118,7 @@ class PageManager(models.Manager):
 class Page(models.Model):
 
     SLUG_CHOICES = (
-        ("popular", "Popular"),
+        ("featured", "Featured"),
         ("comedy", "Comedy"),
         ("action", "Action"),
         ("romance", "Romance"),

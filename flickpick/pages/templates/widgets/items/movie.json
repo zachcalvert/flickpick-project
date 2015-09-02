@@ -15,7 +15,7 @@
       [
         {% for director in item.director_set.all %}
          { "name": "{{ director.name }}",
-           "path": "{% url 'director' director.id %}"
+           "path": "{{ actor.person.get_absolute_url }}"
          }{%  loopcomma %}
         {%  endfor %}
         ],
@@ -23,7 +23,7 @@
       [
         {% for actor in item.actor_set.all %}
          { "name": "{{ actor.name }}",
-           "path": "{% url 'actor' actor.id %}"
+           "path": "{{ actor.person.get_absolute_url }}"
          }{%  loopcomma %}
         {%  endfor %}
         ],
@@ -31,7 +31,7 @@
       [
         {% for writer in item.writer_set.all %}
          { "name": "{{ writer.name }}",
-           "path": "{% url 'writer' writer.id %}"
+           "path": "{{ actor.person.get_absolute_url }}"
          }{%  loopcomma %}
         {%  endfor %}
         ],

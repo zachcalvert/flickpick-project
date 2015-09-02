@@ -2,6 +2,29 @@ from django.db import models
 
 from django.core.urlresolvers import reverse
 
+
+class Person(models.Model):
+	name = models.CharField(max_length=100)
+
+	def get_absolute_url(self):
+		return reverse('person_profile', kwargs={'person_id': self.pk})
+
+	def __unicode__(self):
+		return self.name
+
+
+class Director(models.Model):
+	person = models.ForeignKey(Person)
+
+
+class Writer(models.Model):
+	person = models.ForeignKey(Person)
+
+
+class Actor(models.Model):
+	person = models.ForeignKey(Person)
+
+
 class Genre(models.Model):
 	name = models.CharField(max_length=100)
 
@@ -11,35 +34,6 @@ class Genre(models.Model):
 	def __unicode__(self):
 		return self.name
 
-class Director(models.Model):
-	name = models.CharField(max_length=100)
-
-	@property
-	def movies(self):
-		return Movie.objects.filter(directors__contains=self)
-
-	def __unicode__(self):
-		return self.name
-
-class Writer(models.Model):
-	name = models.CharField(max_length=100)
-
-	@property
-	def movies(self):
-		return Movie.objects.filter(writers__contains=self)
-
-	def __unicode__(self):
-		return self.name
-
-class Actor(models.Model):
-	name = models.CharField(max_length=100)
-
-	@property
-	def movies(self):
-		return Movie.objects.filter(actors__contains=self)
-
-	def __unicode__(self):
-		return self.name
 
 class Movie(models.Model):
 	title = models.CharField(max_length=100, unique=True)

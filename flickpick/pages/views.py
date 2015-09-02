@@ -97,3 +97,13 @@ class MovieProfileView(TemplateView):
         context['movie'] = Movie.objects.get(id=movie_id)
         return context
 
+
+class PersonProfileView(TemplateView):
+    template_name = "pages/person_profile.html"
+
+    def get_context_data(self, person_id, **kwargs):
+        context = super(PersonProfileView, self).get_context_data(**kwargs)
+        context['person'] = Person.objects.get(id=person_id)
+        return context
+
+

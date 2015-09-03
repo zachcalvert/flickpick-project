@@ -11,6 +11,22 @@ ul {
     list-style: none;
 }
 
+.container {
+    margin-left: 0!important;
+    margin-right: 0!important;
+    width: 100%;
+}
+
+.navbar-nav {
+    float: left;
+    margin: 0;
+    width: 80%;
+}
+
+#logout {
+    float: right;
+}
+
 .page-content {
 	padding: 0px 20px;
 }
@@ -50,6 +66,8 @@ ul {
     height: 240px;
 }
 
+
+/* movie item */
 .movie-title {
     font-size:14px;
     height: 36px;
@@ -60,6 +78,21 @@ ul {
 
 .movie-image {
     height:250px;
+}
+
+.seen-it {
+    background: #000;
+    padding: 8px;
+}
+
+.seen-it a { 
+    color: #FFF;
+    font-size: 14px;
+    text-decoration:none!important;
+}
+.seen-it a:hover {
+    text-decoration: none;
+    color: #DDD;
 }
 
 /*row focus widget*/

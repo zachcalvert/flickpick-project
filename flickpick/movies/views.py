@@ -37,7 +37,7 @@ class SeenMovieView(View):
 			if created:
 				d = {'success': 'true', 'viewing': '{0} has seen {1}'.format(user, movie)}
 				messages.add_message(self.request, messages.SUCCESS,
-					_('{} added to your reel.'.format(movie.title)))
+					_('{} has been added to your reel.'.format(movie.title)))
 			else:
 				d = {'success': 'false'}
 

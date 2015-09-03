@@ -21,6 +21,12 @@ class Director(models.Model):
 
 
 class Writer(models.Model):
+	WRITER_ROLES = (
+        ('novel', 'Novel'),
+        ('screenplay', 'Screenplay'),
+        ('story', 'Story'),
+    )
+
 	person = models.ForeignKey(Person)
 
 	def __unicode__(self):

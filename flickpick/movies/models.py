@@ -16,13 +16,22 @@ class Person(models.Model):
 class Director(models.Model):
 	person = models.ForeignKey(Person)
 
+	def __unicode__(self):
+		return self.person.name
+
 
 class Writer(models.Model):
 	person = models.ForeignKey(Person)
 
+	def __unicode__(self):
+		return self.person.name
+
 
 class Actor(models.Model):
 	person = models.ForeignKey(Person)
+
+	def __unicode__(self):
+		return self.person.name
 
 
 class Genre(models.Model):

@@ -14,15 +14,15 @@
     "directors":
       [
         {% for director in item.director_set.all %}
-         { "name": "{{ director.name }}",
-           "path": "{{ actor.person.get_absolute_url }}"
+         { "name": "{{ director.person.name }}",
+           "path": "{{ director.person.get_absolute_url }}"
          }{%  loopcomma %}
         {%  endfor %}
         ],
     "actors":
       [
         {% for actor in item.actor_set.all %}
-         { "name": "{{ actor.name }}",
+         { "name": "{{ actor.person.name }}",
            "path": "{{ actor.person.get_absolute_url }}"
          }{%  loopcomma %}
         {%  endfor %}
@@ -30,8 +30,8 @@
     "writers":
       [
         {% for writer in item.writer_set.all %}
-         { "name": "{{ writer.name }}",
-           "path": "{{ actor.person.get_absolute_url }}"
+         { "name": "{{ writer.person.name }}",
+           "path": "{{ writer.person.get_absolute_url }}"
          }{%  loopcomma %}
         {%  endfor %}
         ],

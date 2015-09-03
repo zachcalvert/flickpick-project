@@ -10,7 +10,7 @@ from django.http import Http404
 
 
 from models import Page
-from movies.models import Movie
+from movies.models import Movie, Person
 
 
 class PageView(TemplateView):

@@ -13,7 +13,7 @@
     "plot":"{{ item.plot|escapejs }}",
     "directors":
       [
-        {% for director in item.director_set.all %}
+        {% for director in item.directors.all %}
          { "name": "{{ director.person.name }}",
            "path": "{{ director.person.get_absolute_url }}"
          }{%  loopcomma %}
@@ -21,7 +21,7 @@
         ],
     "actors":
       [
-        {% for actor in item.actor_set.all %}
+        {% for actor in item.actors.all %}
          { "name": "{{ actor.person.name }}",
            "path": "{{ actor.person.get_absolute_url }}"
          }{%  loopcomma %}
@@ -29,7 +29,7 @@
         ],
     "writers":
       [
-        {% for writer in item.writer_set.all %}
+        {% for writer in item.writers.all %}
          { "name": "{{ writer.person.name }}",
            "path": "{{ writer.person.get_absolute_url }}"
          }{%  loopcomma %}
@@ -37,9 +37,8 @@
         ],
    "genres":
       [
-        {% for genre in item.genre_set.all %}
-         { "name": "{{ genre.name }}",
-           "path": "{% url 'genre' genre.id %}"
+        {% for genre in item.genres.all %}
+         { "name": "{{ genre.name }}"
          }{%  loopcomma %}
         {%  endfor %}
         ]

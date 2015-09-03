@@ -19,3 +19,11 @@ class UserProfile(models.Model):
 
 	def get_absolute_url(self):
 		return reverse('user_profile', kwargs={'user_id': self.user.pk})
+
+	@property
+	def has_seen_movie(self, movie):
+		try:
+			Viewing.objects.get(user=self, movie=movie)
+		except Viewing.DoesNotExist:
+			return False
+		return True

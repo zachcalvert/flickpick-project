@@ -43,23 +43,29 @@
         <div id="movie-details" class="hidden-on-mobile">
             <div id="profile-directors">
                 <h3>{% trans 'Directed By' %}</h3>
-                {% for director in movie.directors.all %}
-                	{{ director.name }}
-                {% endfor %}
+                <ul class="credits-list">
+                    {% for director in movie.directors.all %}
+                        <li class="credits-list-item"><a href="{{ director.person.get_absolute_url }}">{{ director }}</a></li>
+                    {% endfor %}
+                </ul>
             </div>
 
             <div id="profile-actors">
                 <h3>{% trans 'Featuring' %}</h3>
-                {% for actor in movie.actors.all %}
-                	{{ actor.name }}
-                {% endfor %}
+                <ul class="credits-list">
+                    {% for actor in movie.actors.all %}
+                        <li class="credits-list-item"><a href="{{ actor.person.get_absolute_url }}">{{ actor }}</a></li>
+                    {% endfor %}
+                </ul>
             </div>
 
             <div id="profile-writers">
                 <h3>{% trans 'Written By' %}</h3>
-                {% for actor in movie.writers.all %}
-                	{{ writer.name }}
-                {% endfor %}
+                <ul class="credits-list">
+                    {% for writer in movie.writers.all %}
+                    	<li class="credits-list-item"><a href="{{ writer.person.get_absolute_url }}">{{ writer }}</a></li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
     </div>
@@ -72,9 +78,11 @@
 		<div class="mobile-movie-info-target">
 		    <div id="profile-directors">
 		        <h3>{% trans 'Directed By' %}</h3>
-		        {% for director in movie.directors.all %}
-		        	{{ director.name }}
-		        {% endfor %}
+		        <ul class="credits-list">
+                    {% for director in movie.directors.all %}
+                        <li class="credits-list-item"><a href="{{ director.person.get_absolute_url }}">{{ director }}</a></li>
+                    {% endfor %}
+                </ul>
 		    </div>
 		</div>
 
@@ -84,9 +92,11 @@
 		<div class="mobile-movie-info-target">
 		    <div id="profile-directors">
 		        <h3>{% trans 'Featuring' %}</h3>
-		        {% for actor in movie.actors.all %}
-		        	{{ actor.name }}
-		        {% endfor %}
+		        <ul class="credits-list">
+                    {% for director in movie.directors.all %}
+                        <li class="credits-list-item"><a href="{{ director.person.get_absolute_url }}">{{ director }}</a></li>
+                    {% endfor %}
+                </ul>
 		    </div>
 		</div>
 
@@ -96,9 +106,11 @@
 		<div class="mobile-movie-info-target">
 		    <div id="profile-directors">
 		        <h3>{% trans 'Written By' %}</h3>
-		        {% for writer in movie.writers.all %}
-		        	{{ writer.name }}
-		        {% endfor %}
+		        <ul class="credits-list">
+                    {% for director in movie.directors.all %}
+                        <li class="credits-list-item"><a href="{{ director.person.get_absolute_url }}">{{ director }}</a></li>
+                    {% endfor %}
+                </ul>
 		    </div>
 		</div>
 

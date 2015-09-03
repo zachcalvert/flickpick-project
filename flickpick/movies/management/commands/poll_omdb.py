@@ -42,7 +42,11 @@ class Command(BaseCommand):
                 print('added movie {} to db'.format(title))
 
                 writers = [x.strip() for x in writer_names.split(',')]
-                for writer_name in writers:
+                for writer in writers:
+                    # rip out the role
+                    writer_name, sep, role = writer.partition(' (')
+                    role = role[:-1] # remove the end parentheses
+
                     person, created = Person.objects.get_or_create(name=writer_name)
                     writer, created = Writer.objects.get_or_create(person=person)
                     movie.writers.add(writer)

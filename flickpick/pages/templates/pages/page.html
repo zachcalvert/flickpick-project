@@ -72,6 +72,19 @@
       $('.seen-it-link').click(function() {
           var movie_id = $(this).parent().parent().attr('id');
           addSeenMovie(movie_id);
+          $( ".seen-it" ).replaceWith('<div class="rate-it"><a class="seen-it-link" href="javascript:;"></a></div>' );
+          $('.rate-it').raty({
+            cancel    : false,
+            half      : true,
+            size      : 24,
+            starHalf  : 'star-half.png',
+            starOff   : 'star-off.png',
+            starOn    : 'star-on.png',
+            path      : '{{ STATIC_URL }}/images/raty',
+            score: function() {
+              return $(this).attr('data-score');
+            }
+          });
       });
 
 

@@ -1,3 +1,5 @@
+{% load page_tags %}
+
 <div class="movie-gallery">
     <h2>{{ widget.name|safe }}</h2>
     <div class="gallery-widget" id="gallery-widget-{{ widget.id }}">
@@ -23,9 +25,15 @@
                         {% if movie.title %}
                             <strong>{{ movie.title|safe }}</strong>
                         {% endif %}
+                        {% if movie|has_seen_movie %}
+                            <div class="rate-it">
+                                <a class="seen-it-link" href="javascript:;"></a>
+                            </div>
+                        {% else %}
                             <div class="seen-it">
                                 <a class="seen-it-link" href="javascript:;">I've Seen This!</a>
                             </div>
+                        {% endif %}
                         </a>
                     </div>
                 </div>
@@ -35,6 +43,16 @@
 </div>
 
 <script type="text/javascript">
+
+    $('.rate-it').raty({
+        cancel    : false,
+        half      : true,
+        size      : 24,
+        starHalf  : 'star-half.png',
+        starOff   : 'star-off.png',
+        starOn    : 'star-on.png',
+        path      : '{{ STATIC_URL }}/images/raty'
+    });
 
     function addSeenMovie(movie_id) {
         var params = {movie: movie_id};

@@ -119,8 +119,8 @@ class Page(models.Model):
 
     SLUG_CHOICES = (
         ("featured", "Featured"),
-        ("comedy", "Comedy"),
-        ("action", "Action"),
+        ("all", "All"),
+        ("user_reel", "User Reel"),
         ("romance", "Romance"),
         ("drama", "Drama"),
         ("horror", "Horror"),

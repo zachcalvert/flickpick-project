@@ -70,6 +70,7 @@ ul {
 
 .bx-wrapper {
     margin: 0 25px!important;
+    max-width: none!important;
 }
 .slider-control.prev {
     text-align: right;

@@ -12,7 +12,7 @@ class Command(BaseCommand):
     Polls the omdb API for movie info
     """
     def handle(self, *args, **options):
-        for title in all_movies[200:300]:
+        for title in all_movies[:300]:
             response = requests.get('http://www.omdbapi.com/?t={}'.format(title))
 
             if response.status_code == 200:

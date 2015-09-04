@@ -81,4 +81,7 @@ class Movie(models.Model):
 
 	def get_absolute_url(self):
 		return reverse('movie_profile', kwargs={'movie_id': self.pk})
+
+	def related(self):
+		return Movie.objects.filter(genres__in=self.genres.all)[:10]
 		

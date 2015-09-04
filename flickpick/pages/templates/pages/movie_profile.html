@@ -70,6 +70,15 @@
         </div>
     </div>
 
+    <div id="movie-footers">
+        {% if movie.related %}
+            <h4>Similar Titles</h4>
+            {% for movie in movie.related %}
+                {% include 'widgets/items/movie.html' %}
+            {% endfor %}
+        {% endif %}
+    </div>
+
 
     <div class="mobile-movie-menus">
 		<div class="mobile-movie-info-trigger">

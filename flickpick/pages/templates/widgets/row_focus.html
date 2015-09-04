@@ -4,12 +4,8 @@
             <div id="prev-items-{{ widget.id }}" class="slider-control prev"></div>
             <div id="widget-row-{{ widget.id }}" class="widget-row-focus">
                 {% for movie in widget.items %}
-                    <div widget-item>
-                        <a href="{{ movie.profile_url }}">
-                            <img class="movie-image"
-                                src="{{ movie.image.url }}"
-                                alt="{{ movie.title }} image">
-                        </a>
+                    <div class="row-focus-item" id="movie-{{ movie.id }}">
+                        {% include 'widgets/items/movie.html' %}
                     </div>
                 {% endfor %}
             </div>

@@ -1,5 +1,9 @@
 from django import template
 
+from accounts.models import User
+from viewing.models import Viewing
+from movies.models import Movie
+
 register = template.Library()
 
 @register.simple_tag(takes_context=True, name="loopcomma")
@@ -13,8 +17,9 @@ def loop_comma(context):
     return ''
 
 @register.filter
-def has_seen_movie(movie):
+def has_been_seen(movie_id):
 	user = User.objects.get()
+	movie = Movie.objects.get(id=movie_id)
 	try:
 		Viewing.objects.get(user=user, movie=movie)
 		return True

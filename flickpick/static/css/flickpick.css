@@ -66,35 +66,6 @@ ul {
     height: 240px;
 }
 
-
-/* movie item */
-.movie-title {
-    font-size:14px;
-    height: 36px;
-    margin: 15px 0 3px 0;
-    position:relative;
-    overflow: hidden;
-}
-
-.movie-image {
-    height:250px;
-}
-
-.seen-it {
-    background: #000;
-    padding: 8px;
-}
-
-.seen-it a { 
-    color: #FFF;
-    font-size: 14px;
-    text-decoration:none!important;
-}
-.seen-it a:hover {
-    text-decoration: none;
-    color: #DDD;
-}
-
 /*row focus widget*/
 
 .bx-wrapper {
@@ -127,11 +98,36 @@ ul {
     color: #000;
 }
 
-#genres-list {
-    list-style: none;
-    margin: 10px 0 20px;
+.row-focus-item {
+    text-align: center;
 }
-#genres-list li {
-    float: left;
-    margin-right: 10px;
+
+/* movie item */
+.movie-title {
+    font-size:14px;
+    height: 36px;
+    margin: 6px 0 3px 0;
+    position:relative;
+    overflow: hidden;
+}
+
+.movie-image {
+    height:250px;
+}
+
+.seen-it {
+    background: #000;
+    padding: 8px;
+    width: 75%;
+    margin-left: 12.5%;
+}
+
+.seen-it a { 
+    color: #FFF;
+    font-size: 14px;
+    text-decoration:none!important;
+}
+.seen-it a:hover {
+    text-decoration: none;
+    color: #DDD;
 }

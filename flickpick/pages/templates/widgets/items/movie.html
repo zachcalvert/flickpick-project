@@ -1,35 +1,32 @@
-{% load display_tags %}
-<div class="profile approved">
-    {% if item.image.url %}
-    <a class="cover " href="{% url 'book_wrapper' item.id %}" title="{{ item.name }}">
-        <span class="cover-image">
-            <span class="cover-image-wrapper">
-                <img src="{{ item.image.url|sized_image:size }}" alt="{{ item.name }} image">
-            </span>
-        </span>
-    </a>
-    {% else %}
-    <div class="row-title-only-container">
-        <a class="row-title-only-link" href="{{ item.path | wrapped_url }}">
-            <strong>{{ item.title }}</strong>
-         </a>
-     </div>
+{% load page_tags %}
+
+{% if movie.image.url %}
+    <div class="movie-image-wrap">
+        <a href="{{ movie.profile_url }}"><img class="movie-image"
+                                                  src="{{ movie.image.url }}"
+                                                  alt="{{ movie.title }} image"></a>
+    </div>
+    
+    {% if movie.title %}
+        <p class="movie-title">{{ movie.title|safe }} - ({{ movie.year }})</p>
     {% endif %}
-</div>
 
-
- {% if movie.image.url %}
-    <div class="gallery-item" id="movie-{{ movie.id }}">
-        <div class="gallery-item-image-wrap">
-            <a href="{{ movie.profile_url }}"><img class="movie-image"
-                                                      src="{{ movie.image.url }}"
-                                                      alt="{{ movie.title }} image"></a>
+    {% if movie.id|has_been_seen %}
+        <div class="rate-it">
+            <a class="seen-it-link" href="javascript:;"></a>
         </div>
+    {% else %}
+        <div class="seen-it">
+            <a class="seen-it-link" href="javascript:;">I've Seen This!</a>
+        </div>
+    {% endif %}
+{% else %}
+    <div class="movie-title-only-container">
+        <a class="movie-title-only-link" href="#">
         {% if movie.title %}
-            <p class="movie-title">{{ movie.title|safe }} - ({{ movie.year }})</p>
+            <strong>{{ movie.title|safe }}</strong>
         {% endif %}
-        
-        {% if request.user|has_seen_movie:movie %}
+        {% if movie.id|has_been_seen %}
             <div class="rate-it">
                 <a class="seen-it-link" href="javascript:;"></a>
             </div>
@@ -38,24 +35,6 @@
                 <a class="seen-it-link" href="javascript:;">I've Seen This!</a>
             </div>
         {% endif %}
-    </div>
-{% else %}
-    <div class="gallery-item">
-        <div class="gallery-title-only-container">
-            <a class="gallery-title-only-link" href="#">
-            {% if movie.title %}
-                <strong>{{ movie.title|safe }}</strong>
-            {% endif %}
-            {% if request.user|has_seen_movie:movie %}
-                <div class="rate-it">
-                    <a class="seen-it-link" href="javascript:;"></a>
-                </div>
-            {% else %}
-                <div class="seen-it">
-                    <a class="seen-it-link" href="javascript:;">I've Seen This!</a>
-                </div>
-            {% endif %}
-            </a>
-        </div>
+        </a>
     </div>
 {% endif %}

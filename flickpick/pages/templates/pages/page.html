@@ -31,3 +31,48 @@
         </ul>
     </span>
 {% endblock %}
+
+{% block extra_js %}
+  <script type="text/javascript">
+
+      $('.rate-it').raty({
+          cancel    : false,
+          half      : true,
+          size      : 24,
+          starHalf  : 'star-half.png',
+          starOff   : 'star-off.png',
+          starOn    : 'star-on.png',
+          path      : '{{ STATIC_URL }}/images/raty'
+      });
+
+      function addSeenMovie(movie_id) {
+        var params = {movie: movie_id};
+        console.log(params)
+        $.ajax({
+            url: '{% url "user_seen_movie" %}',
+            type: 'POST',
+            data: JSON.stringify(params),
+            contentType: 'application/json',
+            dataType: 'text',
+            processData: true,
+            success: function(response) {
+                console.log(response)
+                var response_data = JSON.parse(response);
+                
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        });
+    };
+
+
+    $('.seen-it-link').click(function() {
+        var movie_id = $(this).parent().parent().attr('id');
+        addSeenMovie(movie_id);
+    });
+
+  </script>
+
+
+{% endblock %}

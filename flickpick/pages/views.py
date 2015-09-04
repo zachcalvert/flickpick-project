@@ -105,5 +105,3 @@ class PersonProfileView(TemplateView):
         context = super(PersonProfileView, self).get_context_data(**kwargs)
         context['person'] = Person.objects.get(id=person_id)
         return context
-
-

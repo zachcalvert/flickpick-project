@@ -2,12 +2,12 @@ import json
 
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.views.generic import View, TemplateView
 from django.core.urlresolvers import reverse, Resolver404, resolve
 from django.template.response import TemplateResponse
 from django.template import TemplateDoesNotExist
 from django.template.loader import get_template
-from django.http import Http404
+from django.http import Http404, HttpResponse
 
 
 from models import Page
@@ -127,3 +127,67 @@ class PersonProfileView(TemplateView):
         context = super(PersonProfileView, self).get_context_data(**kwargs)
         context['person'] = Person.objects.get(id=person_id)
         return context
+
+
+class MovieView(View):
+    def movie_data(self, movie):
+        movie_dict = {
+            'id': movie.id,
+            'title': movie.title,
+            'year': movie.year,
+            'rated': movie.rated,
+            'plot': movie.plot,
+            'image_url': movie.poster_url,
+            'imdb_id': movie.imdb_id,
+            'imdb_rating': str(movie.imdb_rating),
+            'notes': movie.notes,
+            'on_netflix': movie.on_netflix,
+            'on_amazon': movie.on_amazon,
+            'on_hulu': movie.on_hulu,
+
+            'genres': [{
+                             'name': g.name,
+                             'path': g.get_absolute_url(),
+                         } for g in movie.genres.all()],
+            'directors': [{
+                           'name': d.person.name,
+                           'path': d.person.get_absolute_url(),
+                       } for d in movie.directors.all()],
+            'actors': [{
+                           'name': a.person.name,
+                           'path': a.person.get_absolute_url(),
+                       } for a in movie.actors.all()],
+            'writers': [{
+                           'name': w.person.name,
+                           'path': w.person.get_absolute_url(),
+                       } for w in movie.writers.all()],
+            'related': self.get_related(movie),
+        }
+
+        return movie_dict
+
+    def get_related(self, movie):
+        related = movie.related()
+        return [{
+            'type': "row_focus",
+            'item_type': "movie",
+            'title': "Similar Movies",
+            'items': [{
+                           'title': m.title,
+                           'path': m.get_absolute_url(),
+                           'image': m.poster_url,
+                       } for m in related ]
+        }]
+
+    def get(self, request, movie_id):
+        try:
+            movie = Movie.objects.get(id=movie_id)
+        except Movie.DoesNotExist:
+            raise Http404()
+
+        api_dict = self.movie_data(movie)
+
+        return HttpResponse(json.dumps(api_dict))
+
+
+

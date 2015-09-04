@@ -1,5 +1,6 @@
 import json
 
+from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.core.urlresolvers import reverse, Resolver404, resolve
@@ -11,6 +12,7 @@ from django.http import Http404
 
 from models import Page
 from movies.models import Movie, Person
+from viewing.models import Viewing
 
 
 class PageView(TemplateView):
@@ -82,10 +84,30 @@ class SlugPageWrapperView(WebPageWrapperView):
         page_slug = page_slug or self.page_slug
         return reverse('page', kwargs={'page_slug': page_slug}, urlconf='pages.api_urls')
 
+
+class UserReelView(TemplateView):
+    template_name = 'pages/user_reel.html'
+
     def get_context_data(self, **kwargs):
-        context = super(SlugPageWrapperView, self).get_context_data(**kwargs)
-        if kwargs.get('page_slug') == 'series':
-            context['all_series'] = Series.objects.filter_approved()
+        context = super(UserReelView, self).get_context_data(**kwargs)
+
+        movies = Viewing.objects.all_movies_for_user(self.request.user)
+
+        try:
+            page_num = int(self.request.GET.get('page', 1))
+        except ValueError:
+            page_num = 1
+
+        pager = Paginator(movies, 25)
+
+        try:
+            movies = pager.page(page_num)
+        except (EmptyPage, InvalidPage):
+            movies = pager.page(pager.num_pages)
+
+        context['paginator'] = pager
+        context['user_movies'] = movies
+
         return context
 
 

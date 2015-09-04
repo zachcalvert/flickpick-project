@@ -1,0 +1,55 @@
+{% load i18n page_tags %}
+
+{% if paginator and page_obj.has_other_pages %}
+    {% nearby_pages paginator page_obj.number %}
+    {% if page_obj.has_next %}
+        <h4>{% trans "Wait, there's more...!" %}</h4>
+    {% endif %}
+    <ul class="hmenu catalog-pager">
+        {% if paginator.num_pages > 1 %}
+            <li>
+                <span>Page {{ page_obj.number }} of {{ paginator.num_pages }}</span>
+            </li>
+        {% endif %}
+        {% if page_obj.has_previous %}
+            <li>
+                <a href="{% set_url_param page page_obj.previous_page_number %}" title="{% trans 'Previous Page' %}">&laquo; {% trans "Prev" %}</a>
+            </li>
+            <li>
+                <a href="{% set_url_param page 1 %}" title="{% trans 'First Page' %}">{% trans "First" %}</a>
+            </li>
+        {% endif %}
+        {% if nearby_pages %}
+            {% for page_num in nearby_pages %}
+                <li>
+                    <a class="{% if page_num == page_obj.number %}current{% endif %}" href="{% set_url_param page page_num %}" title="{% trans 'Page' %} {{ page_num }}">{{ page_num }}</a>
+                </li>
+            {% endfor %}
+        {% endif %}
+        {% if page_obj.has_next %}
+            <li>
+                <a href="{% set_url_param page paginator.num_pages %}" title="{% trans 'Last Page' %}">{% trans "Last" %}</a>
+            </li>
+            <li>
+                <a href="{% set_url_param page page_obj.next_page_number %}" title="{% trans 'Next Page' %}">{% trans "Next" %} &raquo;</a>
+            </li>
+        {% endif %}
+    </ul>
+        {% if paginator.num_pages > 4 %}
+            <form class="right" id="user-page" method="get" action="" role="nav">
+                {% for key, value in request.GET.items %}
+                <input type="hidden" name="{{ key }}" value="{{ value }}"/>
+                {% endfor %}
+                <select id="page-select" name="page" size="1">
+                    {% for i in paginator.page_range %}
+                        {% if page_obj.number == i %}
+                            <option selected="selected">{{ i }}</option>
+                        {% else %}
+                            <option>{{ i }}</option>
+                        {% endif %}
+                    {% endfor %}
+                <input id="page-select" type="submit" value="Go to Page">
+                </select>
+            </form>
+        {% endif %}
+{% endif %}

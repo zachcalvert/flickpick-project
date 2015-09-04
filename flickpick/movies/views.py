@@ -44,6 +44,25 @@ class SeenMovieView(View):
 			return HttpResponse(json.dumps(d))
 
 
+class RatedMovieView(View):
+
+	def dispatch(self, request):
+		if request.is_ajax():
+			user = request.user
+
+			body = json.loads(request.body)
+			movie_id = body.get('movie').strip('movie-')
+			rating = body.get('rating')
+			
+			movie = Movie.objects.get(id=movie_id)
+			viewing = Viewing.objects.get(user=user, movie=movie)
+			viewing.rating = rating
+			viewing.save()
+
+			d = {'success': 'true', 'movie': '{0} has been rated {1}'.format(movie, rating)}
+			return HttpResponse(json.dumps(d))
+
+
 class BrowseView(TemplateView):
 	template_name = 'browse.html'
 

@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^genres/(?P<genre_id>\d+)/$', views.GenreView.as_view(), name="genre_browse"),
 
     url(r'^seen/$', csrf_exempt(views.SeenMovieView.as_view()), name="user_seen_movie"),
+    url(r'^rated/$', csrf_exempt(views.RatedMovieView.as_view()), name="user_rated_movie"),    
 ]

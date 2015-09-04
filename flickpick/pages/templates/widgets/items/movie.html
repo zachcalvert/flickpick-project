@@ -11,7 +11,13 @@
         <p class="movie-title">{{ movie.title|safe }} - ({{ movie.year }})</p>
     {% endif %}
 
-    {% if movie.id|has_been_seen %}
+    {% if movie.id|has_rating %}
+        {% with movie.id|get_rating as rating %}
+            <div class="rate-it" data-score="{{ rating }}">
+                <a class="seen-it-link" href="javascript:;"></a>
+            </div>
+        {% endwith %}
+    {% elif movie.id|has_been_seen %}
         <div class="rate-it">
             <a class="seen-it-link" href="javascript:;"></a>
         </div>

@@ -42,7 +42,10 @@
           starHalf  : 'star-half.png',
           starOff   : 'star-off.png',
           starOn    : 'star-on.png',
-          path      : '{{ STATIC_URL }}/images/raty'
+          path      : '{{ STATIC_URL }}/images/raty',
+          score: function() {
+            return $(this).attr('data-score');
+          }
       });
 
       function addSeenMovie(movie_id) {
@@ -64,13 +67,40 @@
                 console.log(errorThrown);
             }
         });
-    };
+      };
+
+      $('.seen-it-link').click(function() {
+          var movie_id = $(this).parent().parent().attr('id');
+          addSeenMovie(movie_id);
+      });
 
 
-    $('.seen-it-link').click(function() {
-        var movie_id = $(this).parent().parent().attr('id');
-        addSeenMovie(movie_id);
-    });
+      function addRatedMovie(movie_id, rating) {
+        var params = {movie: movie_id, rating:rating};
+        console.log(params)
+        $.ajax({
+            url: '{% url "user_rated_movie" %}',
+            type: 'POST',
+            data: JSON.stringify(params),
+            contentType: 'application/json',
+            dataType: 'text',
+            processData: true,
+            success: function(response) {
+                console.log(response)
+                var response_data = JSON.parse(response);
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        });
+      };
+
+      $('.rate-it').click(function() {
+        var movie_id = $(this).parent().attr('id');
+        var rating = $(this).find('input').attr('value');
+        console.log(rating);
+        addRatedMovie(movie_id, rating);
+      });
 
   </script>
 

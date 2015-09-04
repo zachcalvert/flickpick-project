@@ -34,6 +34,10 @@
     display: none;
 }
 
+#movie-footer {
+    margin: 20px;
+}
+
 
 /* ----------- Mobile movie profile ----------- */
 @media screen and (max-width: 640px) {

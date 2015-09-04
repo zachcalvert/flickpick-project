@@ -70,12 +70,46 @@
         </div>
     </div>
 
-    <div id="movie-footers">
+    <div id="movie-footer">
         {% if movie.related %}
             <h4>Similar Titles</h4>
-            {% for movie in movie.related %}
-                {% include 'widgets/items/movie.html' %}
-            {% endfor %}
+            <div class="carousel">
+                <div id="prev-items-{{ movie.id }}" class="slider-control prev"></div>
+                <div id="widget-row-{{ movie.id }}" class="widget-row-focus">
+                    {% for movie in movie.related %}
+                        <div class="row-focus-item" id="movie-{{ movie.id }}">
+                            {% if movie.poster_url %}
+                                <div class="movie-image-wrap">
+                                    <a href="{{ movie.profile_url }}"><img class="movie-image"
+                                                                              src="{{ movie.poster_url }}"
+                                                                              alt="{{ movie.title }} image"
+                                                                              width="160px"></a>
+                                </div>
+                                {% if movie.title %}
+                                    <p class="movie-title">{{ movie.title|safe }} - ({{ movie.year }})</p>
+                                {% endif %}
+
+                                {% if movie.id|has_rating %}
+                                    {% with movie.id|get_rating as rating %}
+                                        <div class="rate-it" data-score="{{ rating }}">
+                                            <a class="seen-it-link" href="javascript:;"></a>
+                                        </div>
+                                    {% endwith %}
+                                {% elif movie.id|has_been_seen %}
+                                    <div class="rate-it">
+                                        <a class="seen-it-link" href="javascript:;"></a>
+                                    </div>
+                                {% else %}
+                                    <div class="seen-it">
+                                        <a class="seen-it-link" href="javascript:;">I've Seen This!</a>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div id="next-items-{{ movie.id }}" class="slider-control next"></div>
+            </div>
         {% endif %}
     </div>
 
@@ -130,19 +164,34 @@
     {{ block.super }}
     <script>
 
+        var SimilarMovieRowFocus =  $("#widget-row-{{ movie.id }}");
+        SimilarMovieRowFocus.bxSlider({
+            minSlides: 2,
+            maxSlides: 5,
+            slideWidth: 175,
+            slideMargin: 16,
+            pager: false,
+            adaptiveHeight: true,
+            nextSelector: "#next-items-{{ movie.id }}",
+            prevSelector: "#prev-items-{{ movie.id }}",
+            prevText: '<i class="fa fa-angle-left"></i>',
+            nextText: '<i class="fa fa-angle-right"></i>'
+        });
+        $('.carousel').css('margin-top','10px');
+
         var mobileWidgetRow =  $(".widget-row-{{ movie.id }}");
-                mobileWidgetRow.bxSlider({
-                    minSlides: 2,
-                    maxSlides: 4,
-                    slideWidth: 90,
-                    slideMargin: 15,
-                    adaptiveHeight: true,
-                    pager: false,
-                    nextSelector: ".next-items-{{ book.id }}",
-                    prevSelector: ".prev-items-{{ book.id }}",
-                    prevText: '<i class="fa fa-angle-left"></i>',
-                    nextText: '<i class="fa fa-angle-right"></i>'
-                });
+        mobileWidgetRow.bxSlider({
+            minSlides: 2,
+            maxSlides: 4,
+            slideWidth: 90,
+            slideMargin: 15,
+            adaptiveHeight: true,
+            pager: false,
+            nextSelector: ".next-items-{{ movie.id }}",
+            prevSelector: ".prev-items-{{ movie.id }}",
+            prevText: '<i class="fa fa-angle-left"></i>',
+            nextText: '<i class="fa fa-angle-right"></i>'
+        });
 
         $('.mobile-movie-info-trigger a').click(function(){
             if($(this).children().first().hasClass('fa-chevron-down')) {

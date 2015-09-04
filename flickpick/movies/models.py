@@ -71,6 +71,11 @@ class Movie(models.Model):
 	on_amazon = models.BooleanField(default=False)
 	on_hulu = models.BooleanField(default=False)
 
+
+	class Meta():
+		ordering = ('title', '-year')
+
+
 	def __unicode__(self):
 		return "{0} ({1})".format(self.title, self.year)
 

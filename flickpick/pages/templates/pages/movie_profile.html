@@ -14,7 +14,7 @@
 {% block content %}
     <div id="movie-profile">
         <div id="movie-cover-image">
-            <img id="movie-cover" src="{{ movie.poster_url }}" width="320px">
+            <img id="movie-cover" src="{{ movie.image.url }}" width="320px">
         </div>
 
         <div id="movie-title">
@@ -44,8 +44,8 @@
             <div id="profile-directors">
                 <h3>{% trans 'Directed By' %}</h3>
                 <ul class="credits-list">
-                    {% for director in movie.directors.all %}
-                        <li class="credits-list-item"><a href="{{ director.person.get_absolute_url }}">{{ director }}</a></li>
+                    {% for director in movie.directors %}
+                        <li class="credits-list-item"><a href="{{ director.path }}">{{ director.name }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
@@ -53,8 +53,8 @@
             <div id="profile-actors">
                 <h3>{% trans 'Featuring' %}</h3>
                 <ul class="credits-list">
-                    {% for actor in movie.actors.all %}
-                        <li class="credits-list-item"><a href="{{ actor.person.get_absolute_url }}">{{ actor }}</a></li>
+                    {% for actor in movie.actors %}
+                        <li class="credits-list-item"><a href="{{ actor.path }}">{{ actor.name }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
@@ -62,8 +62,8 @@
             <div id="profile-writers">
                 <h3>{% trans 'Written By' %}</h3>
                 <ul class="credits-list">
-                    {% for writer in movie.writers.all %}
-                    	<li class="credits-list-item"><a href="{{ writer.person.get_absolute_url }}">{{ writer }}</a></li>
+                    {% for writer in movie.writers %}
+                    	<li class="credits-list-item"><a href="{{ writer.path }}">{{ writer.name }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
@@ -76,35 +76,9 @@
             <div class="carousel">
                 <div id="prev-items-{{ movie.id }}" class="slider-control prev"></div>
                 <div id="widget-row-{{ movie.id }}" class="widget-row-focus">
-                    {% for movie in movie.related %}
+                    {% for movie in movie.related.0.items %}
                         <div class="row-focus-item" id="movie-{{ movie.id }}">
-                            {% if movie.poster_url %}
-                                <div class="movie-image-wrap">
-                                    <a href="{{ movie.profile_url }}"><img class="movie-image"
-                                                                              src="{{ movie.poster_url }}"
-                                                                              alt="{{ movie.title }} image"
-                                                                              width="160px"></a>
-                                </div>
-                                {% if movie.title %}
-                                    <p class="movie-title">{{ movie.title|safe }} - ({{ movie.year }})</p>
-                                {% endif %}
-
-                                {% if movie.id|has_rating %}
-                                    {% with movie.id|get_rating as rating %}
-                                        <div class="rate-it" data-score="{{ rating }}">
-                                            <a class="seen-it-link" href="javascript:;"></a>
-                                        </div>
-                                    {% endwith %}
-                                {% elif movie.id|has_been_seen %}
-                                    <div class="rate-it">
-                                        <a class="seen-it-link" href="javascript:;"></a>
-                                    </div>
-                                {% else %}
-                                    <div class="seen-it">
-                                        <a class="seen-it-link" href="javascript:;">I've Seen This!</a>
-                                    </div>
-                                {% endif %}
-                            {% endif %}
+                            {% include 'widgets/items/movie.html' %}
                         </div>
                     {% endfor %}
                 </div>

@@ -80,8 +80,8 @@ class Movie(models.Model):
 		return "{0} ({1})".format(self.title, self.year)
 
 	def get_absolute_url(self):
-		return reverse('movie_profile', kwargs={'movie_id': self.pk})
+		return reverse('movie_wrapper', kwargs={'movie_id': self.pk})
 
 	def related(self):
-		return Movie.objects.filter(genres__in=self.genres.all)[:10]
+		return Movie.objects.filter(genres__in=self.genres.all).distinct()[:10]
 		

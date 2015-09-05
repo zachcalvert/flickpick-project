@@ -111,13 +111,12 @@ class UserReelView(TemplateView):
         return context
 
 
-class MovieProfileView(TemplateView):
+class MovieWrapperView(WebPageWrapperView):
     template_name = "pages/movie_profile.html"
+    context_object_name = "movie"
 
-    def get_context_data(self, movie_id, **kwargs):
-        context = super(MovieProfileView, self).get_context_data(**kwargs)
-        context['movie'] = Movie.objects.get(id=movie_id)
-        return context
+    def get_api_url(self, movie_id, *args, **kwargs):
+        return reverse('movie', kwargs={'movie_id': movie_id}, urlconf='pages.api_urls')
 
 
 class PersonProfileView(TemplateView):
@@ -137,13 +136,16 @@ class MovieView(View):
             'year': movie.year,
             'rated': movie.rated,
             'plot': movie.plot,
-            'image_url': movie.poster_url,
             'imdb_id': movie.imdb_id,
             'imdb_rating': str(movie.imdb_rating),
             'notes': movie.notes,
             'on_netflix': movie.on_netflix,
             'on_amazon': movie.on_amazon,
             'on_hulu': movie.on_hulu,
+
+            'image': {
+                'url': movie.poster_url,
+            },
 
             'genres': [{
                              'name': g.name,
@@ -173,9 +175,13 @@ class MovieView(View):
             'item_type': "movie",
             'title': "Similar Movies",
             'items': [{
+                           'id': m.id,
                            'title': m.title,
                            'path': m.get_absolute_url(),
-                           'image': m.poster_url,
+                           'image': {
+                                'url': m.poster_url,
+                            },
+                           'year': m.year,
                        } for m in related ]
         }]
 

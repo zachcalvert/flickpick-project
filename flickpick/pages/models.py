@@ -400,7 +400,7 @@ class MoviesWidget(CatalogGroupWidget):
         if self.source_writer:
             movies = movies.filter(writers__in=[self.source_writer.id])
         if self.source_year:
-            movies = movies.filter(year=source_year)
+            movies = movies.filter(year=self.source_year)
 
         if self.new_releases:
             if self.new_releases_window is not None:

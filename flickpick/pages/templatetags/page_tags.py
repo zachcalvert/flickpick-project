@@ -17,8 +17,7 @@ def loop_comma(context):
     return ''
 
 @register.filter
-def has_been_seen(movie_id):
-	user = User.objects.get()
+def has_been_seen(movie_id, user):
 	movie = Movie.objects.get(id=movie_id)
 	try:
 		Viewing.objects.get(user=user, movie=movie)
@@ -28,8 +27,7 @@ def has_been_seen(movie_id):
 	return True
 
 @register.filter
-def has_rating(movie_id):
-    user = User.objects.get()
+def has_rating(movie_id, user):
     movie = Movie.objects.get(id=movie_id)
     try:
         viewing = Viewing.objects.get(user=user, movie=movie)
@@ -40,8 +38,7 @@ def has_rating(movie_id):
     return False
 
 @register.filter
-def get_rating(movie_id):
-    user = User.objects.get()
+def get_rating(movie_id, user):
     movie = Movie.objects.get(id=movie_id)
     return Viewing.objects.get(user=user, movie=movie).rating
 

@@ -72,7 +72,7 @@
       $('.seen-it-link').click(function() {
           var movie_id = $(this).parent().parent().attr('id');
           addSeenMovie(movie_id);
-          $( ".seen-it" ).replaceWith('<div class="rate-it"><a class="seen-it-link" href="javascript:;"></a></div>' );
+          $( ".seen-it" ).replaceWith('<div class="rate-it"><a class="rate-it-link" href="javascript:;"></a></div>' );
           $('.rate-it').raty({
             cancel    : false,
             half      : true,

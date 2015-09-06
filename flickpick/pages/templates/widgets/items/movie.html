@@ -11,15 +11,15 @@
         <p class="movie-title">{{ movie.title|safe }} - ({{ movie.year }})</p>
     {% endif %}
 
-    {% if movie.id|has_rating %}
-        {% with movie.id|get_rating as rating %}
+    {% if movie.id|has_rating:request.user %}
+        {% with movie.id|get_rating:request.user as rating %}
             <div class="rate-it" data-score="{{ rating }}">
-                <a class="seen-it-link" href="javascript:;"></a>
+                <a class="rate-it-link" href="javascript:;"></a>
             </div>
         {% endwith %}
-    {% elif movie.id|has_been_seen %}
+    {% elif movie.id|has_been_seen:request.user %}
         <div class="rate-it">
-            <a class="seen-it-link" href="javascript:;"></a>
+            <a class="rate-it-link" href="javascript:;"></a>
         </div>
     {% else %}
         <div class="seen-it">
@@ -32,9 +32,9 @@
         {% if movie.title %}
             <strong>{{ movie.title|safe }}</strong>
         {% endif %}
-        {% if movie.id|has_been_seen %}
+        {% if movie.id|has_been_seen:request.user %}
             <div class="rate-it">
-                <a class="seen-it-link" href="javascript:;"></a>
+                <a class="rate-it-link" href="javascript:;"></a>
             </div>
         {% else %}
             <div class="seen-it">

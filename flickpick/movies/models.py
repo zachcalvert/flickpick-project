@@ -9,6 +9,9 @@ class Person(models.Model):
 	def get_absolute_url(self):
 		return reverse('person_wrapper', kwargs={'person_id': self.pk})
 
+	def get_api_url(self):
+		return reverse('person', kwargs={'person_id': self.pk})
+
 	@property
 	def director(self):
 		try:
@@ -90,6 +93,12 @@ class Actor(models.Model):
 class Genre(models.Model):
 	name = models.CharField(max_length=100)
 
+	def movies(self):
+		return [m.title for m in self.movie_set.all()]
+
+	def get_api_url(self):
+		return reverse('genre', kwargs={'genre_id': self.pk})	
+
 	def get_absolute_url(self):
 		return reverse('genre_browse', kwargs={'genre_id': self.pk})
 
@@ -125,6 +134,9 @@ class Movie(models.Model):
 
 	def __unicode__(self):
 		return "{0} ({1})".format(self.title, self.year)
+
+	def get_api_url(self):
+		return reverse('movie', kwargs={'movie_id': self.pk})
 
 	def get_absolute_url(self):
 		return reverse('movie_wrapper', kwargs={'movie_id': self.pk})

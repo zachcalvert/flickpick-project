@@ -11,7 +11,7 @@ from django.http import Http404, HttpResponse
 
 
 from models import Page
-from movies.models import Movie, Person
+from movies.models import Movie, Person, Genre
 from viewing.models import Viewing
 
 
@@ -148,19 +148,19 @@ class MovieView(View):
 
             'genres': [{
                              'name': g.name,
-                             'path': g.get_absolute_url(),
+                             'path': g.get_api_url(),
                          } for g in movie.genres.all()],
             'directors': [{
                            'name': d.person.name,
-                           'path': d.person.get_absolute_url(),
+                           'path': d.person.get_api_url(),
                        } for d in movie.directors.all()],
             'actors': [{
                            'name': a.person.name,
-                           'path': a.person.get_absolute_url(),
+                           'path': a.person.get_api_url(),
                        } for a in movie.actors.all()],
             'writers': [{
                            'name': w.person.name,
-                           'path': w.person.get_absolute_url(),
+                           'path': w.person.get_api_url(),
                        } for w in movie.writers.all()],
             'related': self.get_related(movie),
         }
@@ -213,6 +213,28 @@ class PersonView(View):
             raise Http404()
 
         api_dict = self.person_data(person)
+
+        return HttpResponse(json.dumps(api_dict))
+
+
+class GenreView(View):
+    def genre_data(self, genre):
+        genre_dict = {
+            'id': genre.id,
+            'name': genre.name,
+            'movies': genre.movies(), 
+        }
+
+        return genre_dict
+
+
+    def get(self, request, genre_id):
+        try:
+            genre = Genre.objects.get(id=genre_id)
+        except Person.DoesNotExist:
+            raise Http404()
+
+        api_dict = self.genre_data(genre)
 
         return HttpResponse(json.dumps(api_dict))
 

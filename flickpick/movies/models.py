@@ -7,7 +7,54 @@ class Person(models.Model):
 	name = models.CharField(max_length=100)
 
 	def get_absolute_url(self):
-		return reverse('person_profile', kwargs={'person_id': self.pk})
+		return reverse('person_wrapper', kwargs={'person_id': self.pk})
+
+	@property
+	def director(self):
+		try:
+			director = Director.objects.get(person=self)
+		except Director.DoesNotExist:
+			return False
+		return director
+
+	@property
+	def actor(self):
+		try:
+			actor = Actor.objects.get(person=self)
+		except Actor.DoesNotExist:
+			return False
+		return actor
+
+	@property
+	def writer(self):
+		try:
+			writer = Writer.objects.get(person=self)
+		except Writer.DoesNotExist:
+			return False
+		return writer
+
+	def movies(self):
+		movies = {}
+
+		if self.director:
+			movies['directed'] = [{
+				'title': m.title,
+				'path': m.get_absolute_url(),
+			} for m in self.director.movie_set.all()]
+
+		if self.actor:
+			movies['acted'] = [{
+				'title': m.title,
+				'path': m.get_absolute_url(),
+			} for m in self.actor.movie_set.all()]
+
+		if self.writer:
+			movies['written'] = [{
+				'title': m.title,
+				'path': m.get_absolute_url(),
+			} for m in self.writer.movie_set.all()]
+
+		return movies
 
 	def __unicode__(self):
 		return self.name

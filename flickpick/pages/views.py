@@ -119,13 +119,12 @@ class MovieWrapperView(WebPageWrapperView):
         return reverse('movie', kwargs={'movie_id': movie_id}, urlconf='pages.api_urls')
 
 
-class PersonProfileView(TemplateView):
+class PersonWrapperView(WebPageWrapperView):
     template_name = "pages/person_profile.html"
+    context_object_name = "person"
 
-    def get_context_data(self, person_id, **kwargs):
-        context = super(PersonProfileView, self).get_context_data(**kwargs)
-        context['person'] = Person.objects.get(id=person_id)
-        return context
+    def get_api_url(self, person_id, *args, **kwargs):
+        return reverse('person', kwargs={'person_id': person_id}, urlconf='pages.api_urls')
 
 
 class MovieView(View):
@@ -192,6 +191,28 @@ class MovieView(View):
             raise Http404()
 
         api_dict = self.movie_data(movie)
+
+        return HttpResponse(json.dumps(api_dict))
+
+
+class PersonView(View):
+    def person_data(self, person):
+        person_dict = {
+            'id': person.id,
+            'name': person.name,
+            'movies': person.movies(), 
+        }
+
+        return person_dict
+
+
+    def get(self, request, person_id):
+        try:
+            person = Person.objects.get(id=person_id)
+        except Person.DoesNotExist:
+            raise Http404()
+
+        api_dict = self.person_data(person)
 
         return HttpResponse(json.dumps(api_dict))
 

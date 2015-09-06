@@ -5,7 +5,34 @@
     {{ person.name }}
 {% endblock %}
 
-
 {% block content %}
-	<h4>{{ person.name }}</h4>
+	<h3>{{ person.name }}</h3>
+
+	{% if person.movies.directed %}
+		<h4>Movies Directed</h4>
+		<ul class="credits-list">
+			{% for movie in person.movies.directed %}
+				<li><a href="{{ movie.path }}">{{ movie.title }}</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+
+	{% if person.movies.acted %}
+		<h4>Movies Acted</h4>
+		<ul class="credits-list">
+			{% for movie in person.movies.acted %}
+				<li><a href="{{ movie.path }}">{{ movie.title }}</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+
+	
+	{% if person.movies.written %}
+		<h4>Movies Written</h4>
+		<ul class="credits-list">
+		{% for movie in person.movies.written %}
+			<li><a href="{{ movie.path }}">{{ movie.title }}</li>
+		{% endfor %}
+		</ul>	
+	{% endif %}
 {% endblock %}

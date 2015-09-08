@@ -81,6 +81,7 @@ class WidgetItem(models.Model):
     """
     Abstract base class for items that are contained inside widgets
     """
+    sort_order = models.IntegerField()
     start_date = models.DateTimeField(null=True, blank=True, help_text="Time at which this item will turn on")
     end_date = models.DateTimeField(null=True, blank=True, help_text="Time at which this item will turn off")
 
@@ -93,15 +94,23 @@ class WidgetItem(models.Model):
 class PageToWidget(models.Model):
     widget = models.ForeignKey(Widget, related_name='page_to_widgets')
     page = models.ForeignKey('Page', related_name='page_to_widgets')
+    sort_order = models.IntegerField(default=0)
 
     class Meta:
-        ordering = ['page']
+        ordering = ['page', 'sort_order']
         unique_together = (
             ['page', 'widget'],
         )
 
+    def clean(self):
+        if PageToWidget.objects.exclude(id=self.id).filter(page=self.page, sort_order=self.sort_order).exists():
+            max_order = PageToWidget.objects.filter(page=self.page).aggregate(
+                max_order=models.Max('sort_order'))['max_order']
+            self.sort_order = max_order + 1
+
     def __unicode__(self):
-        return "{}".format(self.widget.name)
+        return u"{} on {}".format(self.widget, self.page)
+
 
 
 class PageManager(models.Manager):
@@ -152,14 +161,20 @@ class Page(models.Model):
 
     @property
     def widgets(self):
-        return self.widgets_base.active()
+        return self.widgets_base.active().order_by('page_to_widgets__sort_order')
 
     @widgets.setter
     def widgets(self, some_widgets):
         self.widgets_base = some_widgets
 
-    def add_widget(self, widget):
-        return self.page_to_widgets.create(widget=widget)
+    def add_widget(self, widget, sort_order=None):
+        if sort_order is None:
+            sort_order = self.page_to_widgets.aggregate(sort_order=models.Max('sort_order'))['sort_order']
+            if sort_order is None:
+                sort_order = 0
+            else:
+                sort_order += 1
+        return self.page_to_widgets.create(widget=widget, sort_order=sort_order)
 
     def get_api_url(self):
         return reverse("page", kwargs={"page_id": self.id})
@@ -465,6 +480,12 @@ class AdGroupItem(PageLinkWidgetItem):
     def clean(self):
         if not self.link:
             raise ValidationError({'link': ["This field is required."]})
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        if self.group_widget and self.sort_order is None:
+            previous_max = self.group_widget.ads.aggregate(o=models.Max('sort_order'))['o'] or 0
+            self.sort_order = previous_max + 1
+        super(AdGroupItem, self).save(force_insert, force_update, using, update_fields)
 
 
 class AdCarouselWidget(Widget):

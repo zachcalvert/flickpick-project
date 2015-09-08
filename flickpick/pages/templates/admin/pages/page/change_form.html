@@ -1,5 +1,5 @@
 {% extends "admin/ajax_change_form.html" %}
-{% load admin_urls darkhorse i18n %}
+{% load admin_urls i18n %}
 
 
 {% block object-tools-items %}
@@ -12,7 +12,7 @@
     <div id="used-slugs">
         {% for page in slug_pages %}
             <div class="slug-warning {{ page.slug }}">
-                This page will replace <a href="{% adminurl page %}">{{ page.name }}</a> as
+                This page will replace {{ page.name }}</a> as
                 the page matching the slug "{{ page.slug }}"
             </div>
         {% endfor %}
@@ -31,7 +31,7 @@
 
         {% for default in default_pages %}
             <div id="default-{{ default.default_for_platform }}">
-            {% include "admin/display/page_previewer.html" with platform=default.default_for_platform %}
+            {% include "admin/pages/page_previewer.html" with platform=default.default_for_platform %}
             </div>
         {% endfor %}
     </fieldset>
@@ -56,7 +56,7 @@
 
         <div id="widgets-list" class="grp-items ui-sortable grp-row">
             {% for widget_form in form.widget_forms %}
-                {% include "admin/display/inline/widget_form.html" %}
+                {% include "admin/pages/inline/widget_form.html" %}
             {% endfor %}
         </div>
 
@@ -66,7 +66,7 @@
                 <ul>
                     {% for widget_type in widget_types|dictsort:"verbose_name" %}
                         <li>
-                            <a href="{% url "admin:display_page_widget_form" widget_type_name=widget_type.model_name %}"
+                            <a href="{% url "admin:pages_page_widget_form" widget_type_name=widget_type.model_name %}"
                                class="grp-add-handler dh-widget-form-add">
                                 {{ widget_type.verbose_name|capfirst }}
                             </a>
@@ -89,19 +89,19 @@
                     </ul>
                     <div id="existing-page" class="add-widget-tab">
                         <input type="text" class="widget_page vTextField" placeholder="search by page name"
-                               data-api-url="{% url "admin:display_page_widget_page_name_lookup" %}"><br/>
+                               data-api-url="{% url "admin:pages_page_widget_page_name_lookup" %}"><br/>
                         <select class="widget_id"></select><br/>
-                        <a href="{% url "admin:display_page_widget_form" %}" class="add-existing-widget">Add</a>
+                        <a href="{% url "admin:pages_page_widget_form" %}" class="add-existing-widget">Add</a>
                     </div>
                     <div id="existing-name" class="add-widget-tab">
                         <input type="text" class="widget_name vTextField" placeholder="search by name"
-                               data-api-url="{% url "admin:display_page_widget_name_lookup" %}"><br/>
+                               data-api-url="{% url "admin:pages_page_widget_name_lookup" %}"><br/>
                         <select class="widget_id"></select><br/>
-                        <a href="{% url "admin:display_page_widget_form" %}" class="add-existing-widget">Add</a>
+                        <a href="{% url "admin:pages_page_widget_form" %}" class="add-existing-widget">Add</a>
                     </div>
                     <div id="existing-id" class="add-widget-tab">
                         <input type="text" class="widget_id" placeholder="enter id"/><br/>
-                        <a href="{% url "admin:display_page_widget_form" %}" class="add-existing-widget">Add</a>
+                        <a href="{% url "admin:pages_page_widget_form" %}" class="add-existing-widget">Add</a>
                     </div>
                 </div>
             </div>

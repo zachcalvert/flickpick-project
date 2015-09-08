@@ -1,0 +1,65 @@
+
+div#thinking
+{
+    display:none;
+    position:absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    top:0;
+    opacity:0.5;
+    background-color:#000;
+    color:#fff;
+    z-index:9999;
+}
+
+div#saving {
+    display:none;
+    position:fixed;
+    top: 50%;
+    left: 50%;
+    width:30em;
+    height:1.5em;
+    margin-top: -9em; /*set to a negative number 1/2 of your height*/
+    margin-left: -15em; /*set to a negative number 1/2 of your width*/
+    color: white;
+    z-index:9998;
+}
+
+label.required {
+    font-weight: bold;
+    font-size: .9em;
+}
+
+p.help-30-width {
+    width: 30em;
+}
+
+#spinner {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin: -100px 0 0 -100px;
+	height: 200px;
+	width: 200px;
+	text-indent: 250px;
+	white-space: nowrap;
+	overflow: hidden;
+    z-index:9999;
+    display: none;
+    -webkit-mask-image: url(images/spinner.png);
+	background-color: #000;
+	-webkit-animation-name: spinnerRotate;
+	-webkit-animation-duration: .5s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: linear;
+}
+
+@-webkit-keyframes spinnerRotate {
+	from {
+		-webkit-transform:rotate(0deg);
+	}
+	to {
+		-webkit-transform:rotate(360deg);
+	}
+}

@@ -1,10 +1,21 @@
 from django.template import Node, Variable, Library
+from django.core.urlresolvers import reverse
 
 from accounts.models import User
 from viewing.models import Viewing
 from movies.models import Movie
 
 register = Library()
+
+
+@register.simple_tag(name="adminurl")
+def admin_url(object, verb="change"):
+    opts = object._meta
+    return reverse("admin:{app}_{model}_{verb}".format(
+        app=opts.app_label,
+        model=opts.model_name,
+        verb=verb
+    ), args=[object.pk])
 
 @register.simple_tag(takes_context=True, name="loopcomma")
 def loop_comma(context):

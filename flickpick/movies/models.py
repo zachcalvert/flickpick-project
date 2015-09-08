@@ -3,6 +3,22 @@ from django.db import models
 from django.core.urlresolvers import reverse
 
 
+# class MovieGroupModel(NameOverrideModel):
+
+#     page = models.ForeignKey('pages.Page', null=True, blank=True, on_delete=models.SET_NULL)
+#     banner_widget = models.ForeignKey('pages.BannerWidget', null=True, blank=True, on_delete=models.SET_NULL,
+#                                       help_text='Banner at the top of automatic pages')
+#     text_widget = models.ForeignKey('pages.TextWidget', null=True, blank=True, on_delete=models.SET_NULL,
+#                                     help_text='Text widget near the top of automatic pages')
+#     ongoing = models.BooleanField(default=False)
+
+#     def get_api_url(self):
+#         return reverse("group", args=[self.id])
+
+#     class Meta:
+#         abstract = True
+
+
 class Person(models.Model):
 	name = models.CharField(max_length=100)
 

@@ -2,23 +2,23 @@
  *  Global scope
  **********************************************************************/
     // Main namespace:
-var darkhorse = darkhorse || {};
-darkhorse.cookieJar = darkhorse.cookieJar || {};
-darkhorse.ajax = darkhorse.ajax || {};
+var flickpick = flickpick || {};
+flickpick.cookieJar = flickpick.cookieJar || {};
+flickpick.ajax = flickpick.ajax || {};
 
 
 /*********************************************************************
  *  Global functions
  **********************************************************************/
 
-darkhorse.cookieJar.setCookie = function (cname, cvalue) {
+flickpick.cookieJar.setCookie = function (cname, cvalue) {
     var d = new Date();
     d.setTime(d.getTime() + (365 * 24 * 60 * 60 * 1000));
     var expires = "expires=" + d.toGMTString();
     document.cookie = cname + "=" + JSON.stringify(cvalue) + "; " + expires + "; path=/";
 };
 
-darkhorse.cookieJar.getCookie = function (cname) {
+flickpick.cookieJar.getCookie = function (cname) {
     var name = cname + "=";
     var ca = document.cookie.split(';');
     for (var i = 0; i < ca.length; i++) {
@@ -33,7 +33,7 @@ django.jQuery(function ($) {
      *  cached DOM elements
      **********************************************************************/
 
-    darkhorse.ajax.loadingIndicator                 = $( "#spinner, #thinking, #saving" );
+    flickpick.ajax.loadingIndicator                 = $( "#spinner, #thinking, #saving" );
 
 
     /*********************************************************************
@@ -54,10 +54,10 @@ django.jQuery(function ($) {
         });
     }
 
-    darkhorse.ajax.ajax_save = function() {
+    flickpick.ajax.ajax_save = function() {
 
 //        $("#thinking, #saving").show();
-        darkhorse.ajax.loadingIndicator.fadeIn('fast');
+        flickpick.ajax.loadingIndicator.fadeIn('fast');
         set_messages([
             {message: "Saving...", tags: "info"}
         ]);
@@ -92,7 +92,7 @@ django.jQuery(function ($) {
             }
             // The confirmation / error message is at the top, the user should be too.
             $('html,body').animate({ scrollTop: 0 }, 'fast', function() {
-                darkhorse.ajax.loadingIndicator.fadeOut('slow');
+                flickpick.ajax.loadingIndicator.fadeOut('slow');
             });
         });
     };
@@ -103,7 +103,7 @@ django.jQuery(function ($) {
             if (window.location.pathname.match(/\/add\/?/) || window.location.pathname.match(/\/catalog\/group\/\d+\/?/)) {
                 $("input[type=submit][name=_continue]").click();
             } else {
-                darkhorse.ajax.ajax_save();
+                flickpick.ajax.ajax_save();
             }
         }
     });

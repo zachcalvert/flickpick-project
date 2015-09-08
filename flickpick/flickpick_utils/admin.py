@@ -17,10 +17,10 @@ class AjaxModelAdmin(admin.ModelAdmin):
     class Media:
         js = (
             "js/jquery.admin-compat.js",
-            "js/admin/darkhorse.js",
+            "js/admin/flickpick.js",
         )
         css = {
-             'all': ('css/admin/darkhorse.css',)
+             'all': ('css/admin/flickpick.css',)
         }
 
     def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):

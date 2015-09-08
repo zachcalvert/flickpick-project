@@ -1,9 +1,9 @@
-darkhorse.page = darkhorse.page || {};
-darkhorse.generic_lookup = darkhorse.generic_lookup || {};
+flickpick.page = flickpick.page || {};
+flickpick.generic_lookup = flickpick.generic_lookup || {};
 
 django.jQuery(function ($) {
-    var page = darkhorse.page;
-    var generic_lookup = darkhorse.generic_lookup;
+    var page = flickpick.page;
+    var generic_lookup = flickpick.generic_lookup;
     var lookup_selector = "input.generic-field-lookup";
     var object_id_selector = "input.generic-object-id";
     var content_type_id_selector = "input.generic-content-type-id";

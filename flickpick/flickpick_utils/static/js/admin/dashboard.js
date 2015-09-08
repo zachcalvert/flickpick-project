@@ -1,7 +1,7 @@
 /*********************************************************************
  *  Global scope
  **********************************************************************/
-darkhorse.dashboard = darkhorse.dashboard || {};
+flickpick.dashboard = flickpick.dashboard || {};
 
 
 django.jQuery(function ($) {
@@ -9,7 +9,7 @@ django.jQuery(function ($) {
      *  cached DOM elements
      **********************************************************************/
 
-    darkhorse.dashboard.collapsible             = $( ".module_title.grp-collapse-handler:parent" );
+    flickpick.dashboard.collapsible             = $( ".module_title.grp-collapse-handler:parent" );
 
     /*********************************************************************
      *  functions
@@ -21,14 +21,14 @@ django.jQuery(function ($) {
      **********************************************************************/
 
     $(document).ready(function () {
-        var collapseState = darkhorse.cookieJar.getCookie("dashboard_state");
+        var collapseState = flickpick.cookieJar.getCookie("dashboard_state");
         if (!collapseState)
             collapseState = {};
         if ( collapseState == {} ) {
-            darkhorse.dashboard.collapsible.each(function() {
+            flickpick.dashboard.collapsible.each(function() {
                 collapseState[this.id] = $( this ).hasClass('grp-open');
             });
-            darkhorse.cookieJar.setCookie("dashboard_state", collapseState);
+            flickpick.cookieJar.setCookie("dashboard_state", collapseState);
         }else {
             $.each(collapseState, function(key, value) {
                 var myDiv = $("#"+key);
@@ -38,12 +38,12 @@ django.jQuery(function ($) {
             });
         }
 
-        $(document).on('click', darkhorse.dashboard.collapsible, function(event){
+        $(document).on('click', flickpick.dashboard.collapsible, function(event){
             var my_parent = $( event.target).parent();
             var my_id = my_parent.attr('id');
             var has_class = my_parent.hasClass('grp-open');
             collapseState[my_id] = has_class ? true : false;
-            darkhorse.cookieJar.setCookie("dashboard_state", collapseState);
+            flickpick.cookieJar.setCookie("dashboard_state", collapseState);
         });
 
     })

@@ -49,3 +49,4 @@ class FilteredSelect(Select):
         attrs['class'] = css_class
         rendered = super(FilteredSelect, self).render(*args, **kwargs)
         return mark_safe(rendered)
+        

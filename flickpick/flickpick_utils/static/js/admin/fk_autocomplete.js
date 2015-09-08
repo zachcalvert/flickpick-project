@@ -1,11 +1,11 @@
-var darkhorse = darkhorse || {};
-darkhorse.fk_autocomplete = darkhorse.fk_autocomplete || {};
+var flickpick = flickpick || {};
+flickpick.fk_autocomplete = flickpick.fk_autocomplete || {};
 
 django.jQuery(function ($) {
-    darkhorse.fk_autocomplete.autocomplete_lookup = $(".autocomplete-lookup");
+    flickpick.fk_autocomplete.autocomplete_lookup = $(".autocomplete-lookup");
 
-    darkhorse.fk_autocomplete.bind_autocomplete = function() {
-        darkhorse.fk_autocomplete.autocomplete_lookup.typeWatch({
+    flickpick.fk_autocomplete.bind_autocomplete = function() {
+        flickpick.fk_autocomplete.autocomplete_lookup.typeWatch({
             callback: function(search_string) {
                 var searchbox = this;
                 var choices = $(searchbox).siblings("select.autocomplete-select");
@@ -40,12 +40,12 @@ django.jQuery(function ($) {
         });
     };
 
-    darkhorse.fk_autocomplete.bind_autocomplete();
+    flickpick.fk_autocomplete.bind_autocomplete();
 
     // re-bind on dom mutation in case a new autocomplete form is added (typeWatch doesn't support dynamic binding)
     var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
     new MutationObserver(function (mutations, observer) {
-        darkhorse.fk_autocomplete.bind_autocomplete();
+        flickpick.fk_autocomplete.bind_autocomplete();
     }).observe(document, {
         childList: true,
         subtree: true,

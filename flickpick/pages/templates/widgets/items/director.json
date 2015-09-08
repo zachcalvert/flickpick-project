@@ -1,7 +1,6 @@
-{% load darkhorse %}
+{% load page_tags %}
 {
-    "name": "{{ item.name|escapejs }}",
+    "name": "{{ item.name }}",
     "path": "{{ item.get_api_url }}",
-    {% include 'widgets/image.json' with url=item.image.url ts=item.image_timestamp placeholder_color=item.image_avg_color aspect_ratio=item.image_aspect_ratio %},
-    "credit" : "{{ item.roles|human_join }}"
+    {% include 'widgets/image.json' with url=item.image.url %},
 }

@@ -1,17 +1,17 @@
 /*********************************************************************
  *  Global scope
  **********************************************************************/
-darkhorse.page              = darkhorse.page || {};
-darkhorse.page.change       = darkhorse.page.change || {};
-darkhorse.page.widget_link  = darkhorse.page.widget_link || {};
+flickpick.page              = flickpick.page || {};
+flickpick.page.change       = flickpick.page.change || {};
+flickpick.page.widget_link  = flickpick.page.widget_link || {};
 
 django.jQuery(function ($) {
     /**
      * page is our App, change and widget_link are separated for differences of functional intent
      */
-    var page        = darkhorse.page;
-    var change      = darkhorse.page.change;
-    var widget_link = darkhorse.page.widget_link;
+    var page        = flickpick.page;
+    var change      = flickpick.page.change;
+    var widget_link = flickpick.page.widget_link;
 
 
     /*********************************************************************

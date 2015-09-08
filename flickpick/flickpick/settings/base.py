@@ -185,6 +185,7 @@ DJANGO_APPS = (
     'django.contrib.staticfiles',
     'django_extensions',
     'grappelli',
+    'haystack',
 
     # Useful template tags:
     # 'django.contrib.humanize',

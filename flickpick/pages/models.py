@@ -272,7 +272,7 @@ class CatalogGroupWidget(AbstractGroupWidget):
 
 		if not self.multi_source:
 		    err_dict = {
-		        f.name: ["Cannot choose more than once source"]
+		        f.name: ["Cannot choose more than one source"]
 		        for f in self.source_fields() if getattr(self, f.attname)
 		    }
 
@@ -360,6 +360,14 @@ class MovieFocusWidget(Widget):
 
 
 class MoviesWidget(CatalogGroupWidget):
+    MOVIE_YEARS = (
+        ('2015', '2015'),
+        ('2014', '2014'),
+        ('2013', '2013'),
+        ('2012', '2012'),
+        ('2011', '2011'),
+        ('2010', '2010'),
+    )
     see_all_view_name = 'see_all_movies'
 
     display_type = models.CharField(
@@ -387,7 +395,7 @@ class MoviesWidget(CatalogGroupWidget):
     source_director = models.ForeignKey(Director, null=True, blank=True)
     source_actor = models.ForeignKey(Actor, null=True, blank=True)
     source_writer = models.ForeignKey(Writer, null=True, blank=True)
-    source_year = models.CharField(max_length=4, null=True, blank=True)
+    source_year = models.CharField(max_length=4, null=True, blank=True, choices=MOVIE_YEARS)
 
     class Meta:
         verbose_name = "group of movies"

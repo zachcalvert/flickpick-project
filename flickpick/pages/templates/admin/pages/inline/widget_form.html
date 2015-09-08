@@ -28,7 +28,7 @@
             {{ widget_form.as_table }}
         </table>
         {% if widget_form.formset %}
-            {% include "admin/display/inline/widget_formset.html" with formset=widget_form.formset %}
+            {% include "admin/pages/inline/widget_formset.html" with formset=widget_form.formset %}
         {% endif %}
     </div>
 </div>

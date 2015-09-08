@@ -153,7 +153,7 @@ class PageAdmin(SortedManyToManyAdmin, SaveAsNewAdmin):
         obj.page = page
         obj.save()
 
-        return redirect("admin:display_page_change", page.id)
+        return redirect("admin:pages_page_change", page.id)
 
 
 admin.site.register(Page, PageAdmin)

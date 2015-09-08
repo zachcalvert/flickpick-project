@@ -4,7 +4,7 @@
 {% block after_related_objects %}
     {% if adminform.form.formset and not original.default %}
         <fieldset class="grp-module">
-            {% include "admin/display/inline/widget_formset.html" with formset=adminform.form.formset %}
+            {% include "admin/pages/inline/widget_formset.html" with formset=adminform.form.formset %}
         </fieldset>
     {% endif %}
 {% endblock %}

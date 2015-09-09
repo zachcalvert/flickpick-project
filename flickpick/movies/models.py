@@ -122,7 +122,6 @@ class Movie(models.Model):
 	actors = models.ManyToManyField(Actor)
 	
 	imdb_id = models.CharField(max_length=10)
-	imdb_rating = models.DecimalField(max_digits=2, decimal_places=1, default=0)
 	notes = models.CharField(max_length=200, null=True, blank=True)
 
 	on_netflix = models.BooleanField(default=False)

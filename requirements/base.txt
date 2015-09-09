@@ -1,12 +1,13 @@
 Django<1.9
 MySQL-python<2.0
-requests<2.5.2
 django_extensions<1.5
-beautifulsoup4<4.3.3
-djangorestframework<3.0.6
-django_filter<0.9.3
-django-debug-toolbar==1.2.1
 django-grappelli<2.7
 
-git+git://github.com/django-haystack/django-haystack.git@cecb459#egg=Haystack
-elasticsearch<1.3
+ipython
+beautifulsoup4<4.3.3
+requests<2.5.2
+Pillow<2.9.1
+
+urllib3==1.8.3
+Sphinx<1.4
+pyelasticsearch<1.5

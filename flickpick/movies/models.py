@@ -2,6 +2,8 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from django.conf import settings
 
+from pyelasticsearch import ElasticSearch
+es = ElasticSearch('http://localhost:9200/')
 
 class Person(models.Model):
 	name = models.CharField(max_length=100)
@@ -143,12 +145,8 @@ class Movie(models.Model):
 
 	def related(self, max_results=6):
 		"""
-		Use Haystack to return a list of related movies sorted by
-		score, followed by title.
+		Use es to find other movies in this genre
 		"""
-		# todo
-		# need to index movies, probably with something like
-		# for movie in Movie.objects.all():
-    	# 	yield es.index_op({'title': movie.title, 'year': movie.year})
-		return Movie.objects.first()
+		movies = es.search(self.genres.first().name, index='movies')
+		return movies
 		

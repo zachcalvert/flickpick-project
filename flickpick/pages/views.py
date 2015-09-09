@@ -9,7 +9,6 @@ from django.template import TemplateDoesNotExist
 from django.template.loader import get_template
 from django.http import Http404, HttpResponse
 
-
 from models import Page
 from movies.models import Movie, Person, Genre
 from viewing.models import Viewing

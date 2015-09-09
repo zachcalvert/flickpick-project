@@ -9,3 +9,4 @@ django-debug-toolbar==1.2.1
 django-grappelli<2.7
 
 git+git://github.com/django-haystack/django-haystack.git@cecb459#egg=Haystack
+elasticsearch<1.3

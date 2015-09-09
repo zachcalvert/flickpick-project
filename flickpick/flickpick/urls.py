@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView
 
+from movies.views import movie
 from pages.views import SlugPageWrapperView
 
 # Uncomment the next two lines to enable the admin:
@@ -12,6 +13,7 @@ admin.autodiscover()
 
 urlpatterns = [
     url(r'^$', SlugPageWrapperView.as_view(page_slug='featured'), name='featured_pages_view'),
+    url(r'^movie$', movie, name="angular"),
     url(r'^api/', include('pages.api_urls')),
     url(r'^pages/', include('pages.urls')),
 

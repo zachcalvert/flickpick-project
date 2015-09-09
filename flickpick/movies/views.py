@@ -1,7 +1,8 @@
 import json
 
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.template import RequestContext
+from django.shortcuts import render, render_to_response
 from django.views.generic import TemplateView, View
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
@@ -20,6 +21,8 @@ def logout(request, template_name='registration/logged_out.html'):
 	logout(request)
 	return redirect('site_base.html')
 
+def movie(request):
+	return render_to_response('movie.html', RequestContext(request))
 
 class SeenMovieView(View):
 

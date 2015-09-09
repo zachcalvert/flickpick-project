@@ -1,0 +1,127 @@
+{% load static i18n %}
+<html lang="en-US" ng-app="movieApp">
+<head>
+	<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/flickpick.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link href="{% static 'css/movie_profile.css' %}" rel="stylesheet">
+
+    <script src="{{ STATIC_URL }}js/jquery-2.1.4.min.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap.min.js" type="application/javascript"></script>
+    <script src="{{ STATIC_URL }}js/flickpick.js" type="application/javascript"></script>
+    <script src="{{ STATIC_URL }}js/jquery.bxslider.js" type="application/javascript"></script>
+    <script src="{{ STATIC_URL }}js/jquery.raty.js" type="application/javascript"></script>
+    <script src="{{ STATIC_URL }}js/movie2/angular.min.js" type="application/javascript"></script>
+    <script src="{{ STATIC_URL }}js/movie2/angular-route.min.js" type="application/javascript"></script>
+    <script src="{{ STATIC_URL }}js/movie2/app.js" type="application/javascript"></script>
+    <script src="{{ STATIC_URL }}js/movie2/controllers.js" type="application/javascript"></script>
+
+</head>
+<body>
+
+    <div id="movie-profile">
+        <div id="movie-cover-image">
+            <img id="movie-cover" src="{{ movie.image.url }}" width="320px">
+        </div>
+
+        <div id="movie-title">
+            <h1>{{ movie.title }}</h1>
+        </div>
+
+        <div id="movie-sub-header">
+
+            <div id="movie-watch-now">
+                <div class="movie-details">
+                    {% block details %}
+	                    <ul class="movie-stream-options">
+	                    	<li><a href="#">Available on Netflix: {{ movie.on_netflix }}</a></li>
+	                    	<li><a href="#">Available on Hulu: {{ movie.on_hulu }}</a></li>
+	                    	<li><a href="#">Available on Amazon: {{ movie.on_amazon }}</a></li>
+	                    </ul>
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+
+        <div class="movie-description">
+            <div ng-view></div>
+            <p>{{ movie.plot|safe }}</p>
+        </div>
+
+        <div id="movie-details" class="hidden-on-mobile">
+            <div id="profile-directors">
+                <h3>{% trans 'Directed By' %}</h3>
+                <ul class="credits-list">
+                    {% for director in movie.directors %}
+                        <li class="credits-list-item"><a href="{{ director.path }}">{{ director.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div id="profile-actors">
+                <h3>{% trans 'Featuring' %}</h3>
+                <ul class="credits-list">
+                    {% for actor in movie.actors %}
+                        <li class="credits-list-item"><a href="{{ actor.path }}">{{ actor.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div id="profile-writers">
+                <h3>{% trans 'Written By' %}</h3>
+                <ul class="credits-list">
+                    {% for writer in movie.writers %}
+                    	<li class="credits-list-item"><a href="{{ writer.path }}">{{ writer.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="movie-footer">
+        {% if movie.related %}
+            <h4>Similar Titles</h4>
+            <div class="carousel">
+                <div id="prev-items-{{ movie.id }}" class="slider-control prev"></div>
+                <div id="widget-row-{{ movie.id }}" class="widget-row-focus">
+                    {% for movie in movie.related.0.items %}
+                        <div class="row-focus-item" id="movie-{{ movie.id }}">
+                            {% include 'widgets/items/movie.html' %}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div id="next-items-{{ movie.id }}" class="slider-control next"></div>
+            </div>
+        {% endif %}
+    </div>
+
+
+    <script>
+        var SimilarMovieRowFocus =  $("#widget-row-{{ movie.id }}");
+        SimilarMovieRowFocus.bxSlider({
+            minSlides: 2,
+            maxSlides: 5,
+            slideWidth: 175,
+            slideMargin: 16,
+            pager: false,
+            adaptiveHeight: true,
+            nextSelector: "#next-items-{{ movie.id }}",
+            prevSelector: "#prev-items-{{ movie.id }}",
+            prevText: '<i class="fa fa-angle-left"></i>',
+            nextText: '<i class="fa fa-angle-right"></i>'
+        });
+        $('.carousel').css('margin-top','10px');
+
+        $('.mobile-movie-info-trigger a').click(function(){
+            if($(this).children().first().hasClass('fa-chevron-down')) {
+                $(this).parent().next().slideDown();
+                $(this).children().first().attr('class','fa fa-chevron-up');
+                mobileWidgetRow.reloadSlider();
+            }
+            else {
+                $(this).parent().next().slideUp();
+                $(this).children().first().attr('class','fa fa-chevron-down');
+            }
+        });
+    </script>
+</body>

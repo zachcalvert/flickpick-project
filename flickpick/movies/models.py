@@ -2,8 +2,6 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from django.conf import settings
 
-from haystack.query import SearchQuerySet
-
 
 class Person(models.Model):
 	name = models.CharField(max_length=100)
@@ -148,23 +146,9 @@ class Movie(models.Model):
 		Use Haystack to return a list of related movies sorted by
 		score, followed by title.
 		"""
-		more_like_this = SearchQuerySet().more_like_this(self)
-		results = []
-
-		for result in more_like_this:
-			if result.model_name != Movie._meta.model_name:
-				continue
-			if self.title and result.title == self.title:
-				continue
-
-			if max_results is not None and len(results) >= max_results:
-				break
-
-			results.append(result)
-
-		related_movies = []
-		for m in results:
-			movie = Movie.objects.get(pk=m.pk)
-			related_movies.append(movie)
-		return related_movies
+		# todo
+		# need to index movies, probably with something like
+		# for movie in Movie.objects.all():
+    	# 	yield es.index_op({'title': movie.title, 'year': movie.year})
+		return Movie.objects.first()
 		

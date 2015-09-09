@@ -47,6 +47,21 @@ CACHES = {
 ########## END CACHE CONFIGURATION
 
 
+########## HAYSTACK CONFIG
+# See: https://django-haystack.readthedocs.org/en/v2.4.0/
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': 'http://127.0.0.1:9200/',
+        'INDEX_NAME': 'haystack',
+        'INCLUDE_SPELLING': True,
+    }
+}
+
+HAYSTACK_SEARCH_RESULTS_LIMIT_PER_CATEGORY = 10
+
+
+
 ########## TOOLBAR CONFIGURATION
 # See: http://django-debug-toolbar.readthedocs.org/en/latest/installation.html#explicit-setup
 # INSTALLED_APPS += (

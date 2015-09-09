@@ -168,7 +168,8 @@ class MovieView(View):
         return movie_dict
 
     def get_related(self, movie):
-        related = movie.related()
+        related_movies = movie.related()
+
         return [{
             'type': "row_focus",
             'item_type': "movie",
@@ -181,7 +182,7 @@ class MovieView(View):
                                 'url': m.poster_url,
                             },
                            'year': m.year,
-                       } for m in related ]
+                       } for m in related_movies ]
         }]
 
     def get(self, request, movie_id):

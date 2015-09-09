@@ -1,22 +1,8 @@
 from django.db import models
-
 from django.core.urlresolvers import reverse
+from django.conf import settings
 
-
-# class MovieGroupModel(NameOverrideModel):
-
-#     page = models.ForeignKey('pages.Page', null=True, blank=True, on_delete=models.SET_NULL)
-#     banner_widget = models.ForeignKey('pages.BannerWidget', null=True, blank=True, on_delete=models.SET_NULL,
-#                                       help_text='Banner at the top of automatic pages')
-#     text_widget = models.ForeignKey('pages.TextWidget', null=True, blank=True, on_delete=models.SET_NULL,
-#                                     help_text='Text widget near the top of automatic pages')
-#     ongoing = models.BooleanField(default=False)
-
-#     def get_api_url(self):
-#         return reverse("group", args=[self.id])
-
-#     class Meta:
-#         abstract = True
+from haystack.query import SearchQuerySet
 
 
 class Person(models.Model):
@@ -157,6 +143,28 @@ class Movie(models.Model):
 	def get_absolute_url(self):
 		return reverse('movie_wrapper', kwargs={'movie_id': self.pk})
 
-	def related(self):
-		return Movie.objects.filter(genres__in=self.genres.all).distinct()[:10]
+	def related(self, max_results=6):
+		"""
+		Use Haystack to return a list of related movies sorted by
+		score, followed by title.
+		"""
+		more_like_this = SearchQuerySet().more_like_this(self)
+		results = []
+
+		for result in more_like_this:
+			if result.model_name != Movie._meta.model_name:
+				continue
+			if self.title and result.title == self.title:
+				continue
+
+			if max_results is not None and len(results) >= max_results:
+				break
+
+			results.append(result)
+
+		related_movies = []
+		for m in results:
+			movie = Movie.objects.get(pk=m.pk)
+			related_movies.append(movie)
+		return related_movies
 		

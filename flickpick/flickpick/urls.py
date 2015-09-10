@@ -11,7 +11,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = [
-    url(r'^$', SlugPageWrapperView.as_view(page_slug='featured'), name='featured_pages_view'),
+    url(r'^$', login_required(SlugPageWrapperView.as_view(page_slug='featured')), name='featured_pages_view'),
     url(r'^api/', include('pages.api_urls')),
     url(r'^pages/', include('pages.urls')),
 

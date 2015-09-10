@@ -135,7 +135,6 @@ class MovieView(View):
             'rated': movie.rated,
             'plot': movie.plot,
             'imdb_id': movie.imdb_id,
-            'imdb_rating': str(movie.imdb_rating),
             'notes': movie.notes,
             'on_netflix': movie.on_netflix,
             'on_amazon': movie.on_amazon,

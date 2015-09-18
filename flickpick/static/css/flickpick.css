@@ -1,7 +1,7 @@
 /*! project specific CSS goes here. */
 
 body {
-	padding-top: 60px;
+	padding-top: 31px;
 	font-family: "Lucida Sans Unicode";
     background: #E1E3E4;
     margin:  0px;
@@ -28,7 +28,13 @@ ul {
 }
 
 .page-content {
-	padding: 0px 20px;
+	padding: 0 20px;
+    margin: 0;
+}
+
+#widgets-list {
+    margin: 0;
+    padding:0;
 }
 
 /* gallery widget */

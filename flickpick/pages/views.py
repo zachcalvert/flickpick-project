@@ -97,6 +97,8 @@ class UserReelView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(UserReelView, self).get_context_data(**kwargs)
 
+        favorites = Viewing.objects.all_movies_for_user_by_rating(self.request.user)[:12]
+
         movies = Viewing.objects.all_movies_for_user(self.request.user)
 
         try:
@@ -104,7 +106,7 @@ class UserReelView(TemplateView):
         except ValueError:
             page_num = 1
 
-        pager = Paginator(movies, 25)
+        pager = Paginator(movies, 35)
 
         try:
             movies = pager.page(page_num)
@@ -112,6 +114,7 @@ class UserReelView(TemplateView):
             movies = pager.page(pager.num_pages)
 
         context['paginator'] = pager
+        context['favorites'] = favorites
         context['user_movies'] = movies
 
         return context

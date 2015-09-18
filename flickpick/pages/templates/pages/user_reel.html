@@ -6,11 +6,34 @@
 {% endblock %}
 
 {% block content %}
-    <h2 style="color:black; margin-bottom:15px">
-        Favorites
-    </h2>
+
+
+    <div class="user-favorites">
+        <div class="page-row-focus">
+            <h2>Favorites</h2>
+                <div class="carousel">
+                    <div id="prev-items-{{ request.user.id }}" class="slider-control prev"></div>
+                    <div id="widget-row-{{ request.user.id }}" class="widget-row-focus">
+                        {% for movie in favorites %}
+                            <div class="row-focus-item" id="movie-{{ movie.id }}">
+                                {% if movie.poster_url %}
+                                    <div class="movie-image-wrap">
+                                        <a href="{{ movie.profile_url }}">
+                                            <img class="movie-image" src="{{ movie.poster_url }}" alt="{{ movie.title }} image">
+                                        </a>
+                                    </div>
+                                    {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div id="next-items-{{ request.user.id }}" class="slider-control next"></div>
+                    <div class="cheat"></div>
+                </div>
+        </div>
+    </div>
 
     <div class="movie-gallery">
+        <h2>All</h2>
         <div class="gallery-widget" id="user-reel-gallery">
             {% for movie in user_movies %}
                 <div class="gallery-item" id="movie-{{ movie.id }}">
@@ -52,4 +75,25 @@
         {% endwith %}
     </div>
 
+{% endblock %}
+
+{% block extra_body_content %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var widgetRowFocus =  $("#widget-row-{{ request.user.id }}");
+            widgetRowFocus.bxSlider({
+                minSlides: 2,
+                maxSlides: 5,
+                slideWidth: 200,
+                slideMargin: 16,
+                pager: false,
+                adaptiveHeight: true,
+                nextSelector: "#next-items-{{ request.user.id }}",
+                prevSelector: "#prev-items-{{ request.user.id }}",
+                prevText: '<i class="fa fa-angle-left"></i>',
+                nextText: '<i class="fa fa-angle-right"></i>'
+            });
+            $('.carousel').css('margin-top','10px');
+        });
+    </script>
 {% endblock %}

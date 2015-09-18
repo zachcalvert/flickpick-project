@@ -139,6 +139,14 @@ class ViewingManager(models.Manager):
         """
         self.revoke_viewing_from_user(self.get_user(), movie)
 
+    def all_movies_for_user_by_rating(self, user):
+        """
+        Returns a list of every Movie the given user has seen.
+        """
+        viewings = Viewing.objects.filter(user=user).order_by('-rating')
+        movies = [v.movie for v in viewings]
+        return movies
+
     def all_movies_for_user(self, user):
 		"""
 		Returns a list of every Movie the given user has seen.

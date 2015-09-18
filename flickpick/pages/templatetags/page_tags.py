@@ -1,3 +1,5 @@
+from urlparse import urlsplit, SplitResult
+
 from django.template import Node, Variable, Library
 from django.core.urlresolvers import reverse
 
@@ -7,6 +9,16 @@ from movies.models import Movie
 
 register = Library()
 
+
+@register.filter
+def wrapped_url(api_url):
+    if api_url:
+        parsed = urlsplit(api_url)
+        path = parsed.path.replace('.json', '').replace('api/v7','').strip('/')
+        path = reverse("web_page_wrapper", args=[path])
+        return SplitResult('', '', path, parsed.query, parsed.fragment).geturl()
+    else:
+        return api_url
 
 @register.simple_tag(name="adminurl")
 def admin_url(object, verb="change"):

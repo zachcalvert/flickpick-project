@@ -6,10 +6,15 @@
 
 	"widgets": [
 		{% for widget in page.widgets %}
-			{% with widget.movieswidget as widget %}
-				{% include widget.template_name %}
-			{% endwith %}
-			{% loopcomma %}
+			{% if widget.bannerwidget %}
+				{% with widget.bannerwidget as widget %}
+					{% include widget.template_name %}{% loopcomma %}
+					{% endwith %}
+			{% else %}
+				{% with widget.movieswidget as widget %}
+					{% include widget.template_name %}{% loopcomma %}
+				{% endwith %}
+			{% endif %}
 		{% endfor %}
 	]
 }

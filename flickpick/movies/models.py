@@ -95,8 +95,27 @@ class Actor(models.Model):
 class Genre(models.Model):
 	name = models.CharField(max_length=100)
 
-	def movies(self):
-		return [m.title for m in self.movie_set.all()]
+	def new_releases(self):
+		return [{
+				'id': m.id,
+				'title': m.title,
+				'path': m.get_absolute_url(),
+				'image': {
+                	'url': m.poster_url,
+                },
+                'year': m.year,
+			} for m in self.movie_set.order_by('-year')[:10]]
+
+	def all_movies(self):
+		return [{
+				'id': m.id,
+				'title': m.title,
+				'path': m.get_absolute_url(),
+				'image': {
+                	'url': m.poster_url,
+                },
+                'year': m.year,
+			} for m in self.movie_set.all()]
 
 	def get_api_url(self):
 		return reverse('genre', kwargs={'genre_id': self.pk})	

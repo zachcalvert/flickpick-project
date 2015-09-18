@@ -64,8 +64,6 @@ class WebPageWrapperView(TemplateView):
         if isinstance(response, TemplateResponse):
             response.render()
 
-        print response.status_code
-
         self.page_data = json.loads(response.content)
         for widget in self.page_data.get('widgets', []):
             template_name = "widgets/{}.html".format(widget['type'])
@@ -119,7 +117,15 @@ class UserReelView(TemplateView):
         context['user_movies'] = movies
 
         return context
-        
+
+
+class GenreWrapperView(WebPageWrapperView):
+    template_name = "pages/genre_profile.html"
+    context_object_name = "genre"
+
+    def get_api_url(self, genre_id, *args, **kwargs):
+        return reverse('genre', kwargs={'genre_id': genre_id}, urlconf='pages.api_urls')
+
 
 class MovieWrapperView(WebPageWrapperView):
     template_name = "pages/movie_profile.html"
@@ -232,7 +238,8 @@ class GenreView(View):
         genre_dict = {
             'id': genre.id,
             'name': genre.name,
-            'movies': genre.movies(), 
+            'new_releases': genre.new_releases(),
+            'all_movies': genre.all_movies(), 
         }
 
         return genre_dict
@@ -241,7 +248,7 @@ class GenreView(View):
     def get(self, request, genre_id):
         try:
             genre = Genre.objects.get(id=genre_id)
-        except Person.DoesNotExist:
+        except Genre.DoesNotExist:
             raise Http404()
 
         api_dict = self.genre_data(genre)

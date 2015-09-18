@@ -109,6 +109,7 @@
       };
 
       $('.rate-it').click(function() {
+        $(".rating-text").replaceWith('<div class="rating-text">Your rating: </div>');
         var movie_id = $(this).parent().attr('id');
         var rating = $(this).find('input').attr('value');
         console.log(rating);

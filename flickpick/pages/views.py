@@ -1,18 +1,25 @@
 import json
 
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
-from django.shortcuts import render
-from django.views.generic import View, TemplateView
+from django.core.serializers.json import DjangoJSONEncoder
 from django.core.urlresolvers import reverse, Resolver404, resolve
+from django.http import Http404, HttpResponse
+from django.shortcuts import render
 from django.template.response import TemplateResponse
 from django.template import TemplateDoesNotExist
 from django.template.loader import get_template
-from django.http import Http404, HttpResponse
+from django.views.generic import View, TemplateView
 
 from models import Page
 from movies.models import Movie, Person, Genre
 from viewing.models import Viewing
 
+
+class JSONHttpResponse(HttpResponse):
+    def __init__(self, content=None, *args, **kwargs):
+        kwargs['content_type'] = 'application/json'
+        content = json.dumps(content, cls=DjangoJSONEncoder)
+        super(JSONHttpResponse, self).__init__(content, *args, **kwargs)
 
 class PageView(TemplateView):
 	template_name = 'page.json'

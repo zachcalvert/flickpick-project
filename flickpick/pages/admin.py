@@ -18,7 +18,7 @@ from pages.templatetags.page_tags import admin_url
 from grappelli.forms import GrappelliSortableHiddenMixin
 from movies.models import Movie, Genre, Director, Actor, Writer
 from flickpick_utils.admin import SortedManyToManyAdmin, AjaxModelAdmin
-from flickpick_utils.widgets import FilteredSelect
+from pages.admin_forms import FilteredSelect
 
 WIDGET_MODELS = [model for model in apps.get_models(pages.models)
                  if issubclass(model, pages.models.Widget) and model != pages.models.Widget]

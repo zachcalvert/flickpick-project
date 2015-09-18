@@ -7,10 +7,10 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.http import HttpResponseRedirect
 from django.utils.encoding import force_text
+from django.contrib.admin.widgets import FilteredSelectMultiple
 
 from flickpick_utils.fields import SortedManyToManyField
-from flickpick_utils.views import JSONHttpResponse
-from flickpick_utils.widgets import OrderedFilteredSelectMultiple
+from pages.views import JSONHttpResponse
 
 
 class AjaxModelAdmin(admin.ModelAdmin):
@@ -79,7 +79,7 @@ class SortedManyToManyAdmin(AjaxModelAdmin):
 
     def formfield_for_manytomany(self, db_field, request=None, **kwargs):
         if isinstance(db_field, SortedManyToManyField):
-            kwargs['widget'] = OrderedFilteredSelectMultiple(verbose_name=db_field.verbose_name, is_stacked=False)
+            kwargs['widget'] = FilteredSelectMultiple(verbose_name=db_field.verbose_name, is_stacked=False)
             return db_field.formfield(**kwargs)
         else:
             return super(SortedManyToManyAdmin, self).formfield_for_manytomany(db_field, request, **kwargs)

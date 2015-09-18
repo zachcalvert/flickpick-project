@@ -24,7 +24,6 @@ class MovieAdmin(admin.ModelAdmin):
 		'plot',
 		'poster_url',
 		'imdb_id',
-		'imdb_rating',
 		'notes',
 		'on_netflix',
 		'on_amazon',

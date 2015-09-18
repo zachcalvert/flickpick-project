@@ -21,6 +21,7 @@ class JSONHttpResponse(HttpResponse):
         content = json.dumps(content, cls=DjangoJSONEncoder)
         super(JSONHttpResponse, self).__init__(content, *args, **kwargs)
 
+
 class PageView(TemplateView):
 	template_name = 'page.json'
 
@@ -118,7 +119,7 @@ class UserReelView(TemplateView):
         context['user_movies'] = movies
 
         return context
-
+        
 
 class MovieWrapperView(WebPageWrapperView):
     template_name = "pages/movie_profile.html"

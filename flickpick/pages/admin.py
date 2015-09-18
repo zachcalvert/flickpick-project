@@ -1,9 +1,11 @@
+from django import forms
+from django.apps import apps
 from django.contrib import admin
 from django.contrib.admin.sites import AlreadyRegistered
+from django.contrib.admin.validation import BaseValidator
+from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
-from django.apps import apps
-from django import forms
 from django.http import Http404
 from django.shortcuts import redirect
 from django.utils.safestring import mark_safe
@@ -12,16 +14,61 @@ from django.utils.translation import ugettext_lazy
 from pages.admin_forms import PageForm, get_widget_form
 from pages.admin_views import WidgetFormView, WidgetNameLookupView, WidgetPageLookupView
 
+from pages.fields import SortedManyToManyField
 import pages.views
 from pages.models import Page
 from pages.templatetags.page_tags import admin_url
 from grappelli.forms import GrappelliSortableHiddenMixin
 from movies.models import Movie, Genre, Director, Actor, Writer
-from flickpick_utils.admin import SortedManyToManyAdmin, AjaxModelAdmin
 from pages.admin_forms import FilteredSelect
 
 WIDGET_MODELS = [model for model in apps.get_models(pages.models)
                  if issubclass(model, pages.models.Widget) and model != pages.models.Widget]
+
+
+class AjaxModelAdmin(admin.ModelAdmin):
+    class Media:
+        js = (
+            "js/jquery.admin-compat.js",
+            "js/admin/flickpick.js",
+        )
+        css = {
+             'all': ('css/flickpick.css',)
+        }
+
+    def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
+        request.form_instance = context['adminform'].form
+        return super(AjaxModelAdmin, self).render_change_form(request, context, add, change, form_url, obj)
+
+    def change_view(self, request, object_id, form_url='', extra_context=None):
+        response = super(AjaxModelAdmin, self).change_view(request, object_id, form_url, extra_context)
+        if request.is_ajax():
+            messages = get_messages(request)
+            response_json = {"messages": [{'level': m.level, 'message': m.message, 'tags': m.tags} for m in messages],
+                             'errors': {}}
+            if hasattr(request, 'form_instance') and not request.form_instance.is_valid():
+                response_json['errors'].update(request.form_instance.errors)
+            # add inline_formset errors
+            # TODO This could potentially trigger a bug in future django. context_data is not guaranteed to be there.
+            if hasattr(response, 'context_data'):
+                for formset in response.context_data['inline_admin_formsets']:
+                    for form in formset.formset.forms:
+                        if not form.is_valid():
+                            for field, error in form.errors.iteritems():
+                                response_json['errors']["{}-{}".format(form.prefix, field)] = error
+            return pages.views.JSONHttpResponse(response_json)
+        else:
+            return response
+
+
+class SortedManyToManyAdmin(AjaxModelAdmin):
+
+    def formfield_for_manytomany(self, db_field, request=None, **kwargs):
+        if isinstance(db_field, SortedManyToManyField):
+            kwargs['widget'] = FilteredSelectMultiple(verbose_name=db_field.verbose_name, is_stacked=False)
+            return db_field.formfield(**kwargs)
+        else:
+            return super(SortedManyToManyAdmin, self).formfield_for_manytomany(db_field, request, **kwargs)
 
 
 class DefaultNullBooleanSelect(forms.NullBooleanSelect):
@@ -129,7 +176,7 @@ class PageAdmin(SortedManyToManyAdmin, SaveAsNewAdmin):
             obj = obj
 
         view_lookups = [
-            (Genre,          pages.views.AutoGenreView()),
+            (Genre, pages.views.AutoGenreView()),
         ]
 
         for model, view in view_lookups:

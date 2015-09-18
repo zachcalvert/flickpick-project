@@ -2,13 +2,13 @@ import re
 from datetime import datetime, timedelta
 from urllib import urlencode
 
+from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.models import Site
-from django.core.urlresolvers import reverse
 from django.core.cache import cache
-from django.db import models
 from django.core.exceptions import ValidationError
-from django.contrib.contenttypes import generic
+from django.core.urlresolvers import reverse
+from django.db import models
 
 from model_utils.managers import InheritanceManager
 

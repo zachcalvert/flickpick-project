@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.contrib.admin.util import unquote
+from django.contrib.admin.utils import unquote
 from django.contrib.admin.validation import BaseValidator
 from django.contrib.messages import get_messages
 from django.core.exceptions import PermissionDenied

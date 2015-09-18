@@ -2,9 +2,10 @@
 
 {% if movie.image.url %}
     <div class="movie-image-wrap">
-        <a href="{{ movie.profile_url }}"><img class="movie-image"
-                                                  src="{{ movie.image.url }}"
-                                                  alt="{{ movie.title }} image"></a>
+        <a href="{{ movie.profile_url }}">
+            <img class="movie-image" src="{{ movie.image.url }}" 
+                    alt="{{ movie.title }} image">
+        </a>
     </div>
     
     {% if movie.title %}
@@ -12,20 +13,25 @@
     {% endif %}
 
     {% if movie.id|has_rating:request.user %}
+        <div class="rating-text">Your rating:</div>
         {% with movie.id|get_rating:request.user as rating %}
             <div class="rate-it" data-score="{{ rating }}">
                 <a class="rate-it-link" href="javascript:;"></a>
             </div>
         {% endwith %}
+
     {% elif movie.id|has_been_seen:request.user %}
+        <div class="rating-text">Rate it!</div>
         <div class="rate-it">
             <a class="rate-it-link" href="javascript:;"></a>
         </div>
+
     {% else %}
         <div class="seen-it">
             <a class="seen-it-link" href="javascript:;">I've Seen This!</a>
         </div>
     {% endif %}
+
 {% else %}
     <div class="movie-title-only-container">
         <a class="movie-title-only-link" href="#">

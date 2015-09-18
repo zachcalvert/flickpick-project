@@ -10,11 +10,13 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from django.contrib.contenttypes import generic
 
+from model_utils.managers import InheritanceManager
+
 from viewing.models import Viewing
 from movies.models import Movie, Director, Actor, Writer, Genre
 
 
-class WidgetManager(models.Manager):
+class WidgetManager(InheritanceManager):
     def active(self):
         return self.exclude(
             start_date__gt=datetime.now()
@@ -51,7 +53,7 @@ class Widget(AbstractWidget):
     def get_subclass(self):
         if type(self) != Widget:
             return self
-        return MoviesWidget.objects.get(id=self.id)
+        return Widget.objects.get_subclass(id=self.id)
 
     def __unicode__(self):
         return " ".join([self.name, type(self.get_subclass())._meta.verbose_name])

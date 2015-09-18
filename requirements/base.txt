@@ -7,6 +7,7 @@ djangorestframework<3.0.6
 django_filter<0.9.3
 django-debug-toolbar==1.2.1
 django-grappelli<2.7
+django-model-utils==2.3.1
 
 git+git://github.com/django-haystack/django-haystack.git@cecb459#egg=Haystack
 elasticsearch<1.3

@@ -20,7 +20,7 @@ class AjaxModelAdmin(admin.ModelAdmin):
             "js/admin/flickpick.js",
         )
         css = {
-             'all': ('css/admin/flickpick.css',)
+             'all': ('css/flickpick.css',)
         }
 
     def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):

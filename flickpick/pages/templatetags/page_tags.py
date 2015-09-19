@@ -14,7 +14,7 @@ register = Library()
 def wrapped_url(api_url):
     if api_url:
         parsed = urlsplit(api_url)
-        path = parsed.path.replace('.json', '').replace('api/v7','').strip('/')
+        path = parsed.path.replace('.json', '').replace('api/','').strip('/')
         path = reverse("web_page_wrapper", args=[path])
         return SplitResult('', '', path, parsed.query, parsed.fragment).geturl()
     else:
@@ -64,7 +64,6 @@ def has_rating(movie_id, user):
 def get_rating(movie_id, user):
     movie = Movie.objects.get(id=movie_id)
     return Viewing.objects.get(user=user, movie=movie).rating
-
 
 @register.tag(name='set_url_param')
 def do_set_url_param(parser, token):

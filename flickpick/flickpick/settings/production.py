@@ -10,6 +10,13 @@ from .base import *
 # into your settings, but ImproperlyConfigured is an exception.
 from django.core.exceptions import ImproperlyConfigured
 
+from .base import *
+
+STATIC_URL = '/static/'
+STATIC_ROOT = SITE_ROOT.parent.child('staticfiles')
+DEBUG = False
+TEMPLATE_DEBUG = False
+
 
 def get_env_setting(setting):
     """ Get the environment setting or return exception """

@@ -369,6 +369,9 @@ class MoviesWidget(CatalogGroupWidget):
         ('2012', '2012'),
         ('2011', '2011'),
         ('2010', '2010'),
+        ('2009', '2009'),
+        ('2008', '2008'),
+        ('2007', '2007'),
     )
     see_all_view_name = 'see_all_movies'
 

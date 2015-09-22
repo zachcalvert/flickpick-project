@@ -12,7 +12,7 @@
 		<h4>Movies Directed</h4>
 		<ul class="credits-list">
 			{% for movie in person.movies.directed %}
-				<li><a href="{{ movie.path }}">{{ movie.title }}</li>
+				<li><a href="{{ movie.path }}">{{ movie.title }}</a></li>
 			{% endfor %}
 		</ul>
 	{% endif %}
@@ -21,7 +21,7 @@
 		<h4>Movies Acted</h4>
 		<ul class="credits-list">
 			{% for movie in person.movies.acted %}
-				<li><a href="{{ movie.path }}">{{ movie.title }}</li>
+				<li><a href="{{ movie.path }}">{{ movie.title }}</a></li>
 			{% endfor %}
 		</ul>
 	{% endif %}
@@ -31,7 +31,7 @@
 		<h4>Movies Written</h4>
 		<ul class="credits-list">
 		{% for movie in person.movies.written %}
-			<li><a href="{{ movie.path }}">{{ movie.title }}</li>
+			<li><a href="{{ movie.path }}">{{ movie.title }}</a></li>
 		{% endfor %}
 		</ul>	
 	{% endif %}

@@ -12,7 +12,7 @@
 
 
 {% block content %}
-    <div id="movie-profile">
+    <div id="movie-profile" style="display:block;">
         <div id="movie-cover-image">
             <img id="movie-cover" src="{{ movie.image.url }}" width="320px">
         </div>
@@ -26,10 +26,11 @@
             <div id="movie-watch-now">
                 <div class="movie-details">
                     {% block details %}
-	                    <ul class="movie-stream-options">
-	                    	<li><a href="#">Available on Netflix: {{ movie.on_netflix }}</a></li>
-	                    	<li><a href="#">Available on Hulu: {{ movie.on_hulu }}</a></li>
-	                    	<li><a href="#">Available on Amazon: {{ movie.on_amazon }}</a></li>
+	                    <ul class="movie-genres">
+                            <strong>Genres</strong>
+                            {% for genre in movie.genres %}
+	                    	  <li><a href="{{ genre.path|wrapped_url }}">{{ genre.name }}</a></li>
+                            {% endfor %}
 	                    </ul>
                     {% endblock %}
                 </div>
@@ -45,7 +46,7 @@
                 <h3>{% trans 'Directed By' %}</h3>
                 <ul class="credits-list">
                     {% for director in movie.directors %}
-                        <li class="credits-list-item"><a href="{{ director.path }}">{{ director.name }}</a></li>
+                        <li class="credits-list-item"><a href="{{ director.path|wrapped_url }}">{{ director.name }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
@@ -54,7 +55,7 @@
                 <h3>{% trans 'Featuring' %}</h3>
                 <ul class="credits-list">
                     {% for actor in movie.actors %}
-                        <li class="credits-list-item"><a href="{{ actor.path }}">{{ actor.name }}</a></li>
+                        <li class="credits-list-item"><a href="{{ actor.path|wrapped_url }}">{{ actor.name }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
@@ -63,28 +64,27 @@
                 <h3>{% trans 'Written By' %}</h3>
                 <ul class="credits-list">
                     {% for writer in movie.writers %}
-                    	<li class="credits-list-item"><a href="{{ writer.path }}">{{ writer.name }}</a></li>
+                    	<li class="credits-list-item"><a href="{{ writer.path|wrapped_url }}">{{ writer.name }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
         </div>
-    </div>
-
-    <div id="movie-footer">
-        {% if movie.related %}
-            <h4>Similar Titles</h4>
-            <div class="carousel">
-                <div id="prev-items-{{ movie.id }}" class="slider-control prev"></div>
-                <div id="widget-row-{{ movie.id }}" class="widget-row-focus">
-                    {% for movie in movie.related.0.items %}
-                        <div class="row-focus-item" id="movie-{{ movie.id }}">
-                            {% include 'widgets/items/movie.html' %}
-                        </div>
-                    {% endfor %}
+        <div id="movie-footer" style="display:block;">
+            {% if movie.related > 0 %}
+                <h4>Similar Titles</h4>
+                <div class="carousel">
+                    <div id="prev-items-{{ movie.id }}" class="slider-control prev"></div>
+                    <div id="widget-row-{{ movie.id }}" class="widget-row-focus">
+                        {% for movie in movie.related.0.items %}
+                            <div class="row-focus-item" id="movie-{{ movie.id }}">
+                                {% include 'widgets/items/movie.html' %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div id="next-items-{{ movie.id }}" class="slider-control next"></div>
                 </div>
-                <div id="next-items-{{ movie.id }}" class="slider-control next"></div>
-            </div>
-        {% endif %}
+            {% endif %}
+        </div>
     </div>
 
 
@@ -111,7 +111,7 @@
 		        <h3>{% trans 'Featuring' %}</h3>
 		        <ul class="credits-list">
                     {% for director in movie.directors.all %}
-                        <li class="credits-list-item"><a href="{{ director.person.get_absolute_url }}">{{ director }}</a></li>
+                        <li class="credits-list-item"><a href="{{ director.path|wrapped_url }}">{{ director }}</a></li>
                     {% endfor %}
                 </ul>
 		    </div>

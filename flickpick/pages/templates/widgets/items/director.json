@@ -1,6 +1,0 @@
-{% load page_tags %}
-{
-    "name": "{{ item.name }}",
-    "path": "{{ item.get_api_url }}",
-    {% include 'widgets/image.json' with url=item.image.url %},
-}

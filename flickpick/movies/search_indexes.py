@@ -4,6 +4,9 @@ from haystack import indexes
 
 from movies.models import Movie, Genre, Director, Actor, Genre
 
+"""
+e.g. http://localhost:9200/movies/_search?q=the
+"""
 
 class MovieIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)

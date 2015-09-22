@@ -170,9 +170,13 @@ class Movie(models.Model):
 		results = []
 
 		for result in more_like_this:
+			movie = Movie.objects.get(id=result.pk)
 			if result.model_name != Movie._meta.model_name:
 				continue
-			if self.title and result.title == self.title:
+			if self.title and movie.title == movie.title:
+				continue
+
+			if self.genres.first() not in movie.genres.all():
 				continue
 
 			if max_results is not None and len(results) >= max_results:

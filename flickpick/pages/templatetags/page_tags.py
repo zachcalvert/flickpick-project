@@ -14,7 +14,7 @@ register = Library()
 def wrapped_url(api_url):
     if api_url:
         parsed = urlsplit(api_url)
-        path = parsed.path.replace('.json', '').replace('api/','').strip('/')
+        path = parsed.path.replace('.json', '').replace('api/','').replace('pages/','').strip('/')
         path = reverse("web_page_wrapper", args=[path])
         return SplitResult('', '', path, parsed.query, parsed.fragment).geturl()
     else:

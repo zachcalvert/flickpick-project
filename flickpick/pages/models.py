@@ -2,7 +2,7 @@ import re
 from datetime import datetime, timedelta
 from urllib import urlencode
 
-from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.models import Site
 from django.core.cache import cache
@@ -132,9 +132,7 @@ class Page(models.Model):
         ("featured", "Featured"),
         ("all", "All"),
         ("user_reel", "User Reel"),
-        ("romance", "Romance"),
-        ("drama", "Drama"),
-        ("horror", "Horror"),
+        ("genres", "Genres"),
         ("recommended", "Recommended"),
     )
 
@@ -191,7 +189,7 @@ class PageLinkMixin(models.Model):
     """
     link_id = models.PositiveIntegerField(null=True, blank=True)
     link_type = models.ForeignKey(ContentType, null=True, blank=True)
-    link = generic.GenericForeignKey("link_type", "link_id")
+    link = GenericForeignKey("link_type", "link_id")
 
     @property
     def link_url(self):

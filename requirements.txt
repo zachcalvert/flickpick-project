@@ -1,3 +1,16 @@
-# This file is here because many Platforms as a Service look for
-#	requirements.txt in the root directory of a project.
--r requirements/production.txt
+Django<1.9
+MySQL-python<2.0
+requests<2.5.2
+django_extensions<1.5
+beautifulsoup4<4.3.3
+djangorestframework<3.0.6
+django_filter<0.9.3
+django-debug-toolbar==1.2.1
+django-grappelli<2.7
+django-model-utils==2.3.1
+
+coverage==3.7.1
+Sphinx==1.2.2
+
+git+git://github.com/django-haystack/django-haystack.git@cecb459#egg=Haystack
+elasticsearch<1.3

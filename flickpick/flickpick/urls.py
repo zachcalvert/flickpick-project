@@ -12,8 +12,8 @@ admin.autodiscover()
 
 urlpatterns = [
     url(r'^$', login_required(SlugPageWrapperView.as_view(page_slug='featured')), name='featured_pages_view'),
-    url(r'^api/', login_required(include('pages.api_urls'))),
-    url(r'^pages/', login_required(include('pages.urls'))),
+    url(r'^api/', include('pages.api_urls')),
+    url(r'^pages/', include('pages.urls')),
 
     url(r'^accounts/', include('accounts.urls')),
     url(r'^browse/', include('movies.urls')),

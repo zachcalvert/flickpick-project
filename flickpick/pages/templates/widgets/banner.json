@@ -1,5 +1,6 @@
 {
     "type": "banner",
+    "genre_url": "{{ widget.genre.get_api_url }}",
     {% if widget.link %}
     "page_path": "{{ widget.link_url }}",
     {% endif %}

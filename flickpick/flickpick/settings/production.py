@@ -71,6 +71,16 @@ CACHES = {
 }
 ########## END CACHE CONFIGURATION
 
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': 'http://127.0.0.1:9200/',
+        'INDEX_NAME': 'haystack',
+        'INCLUDE_SPELLING': True,
+    }
+}
+
+HAYSTACK_SEARCH_RESULTS_LIMIT_PER_CATEGORY = 10
 
 ########## SECRET CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key

@@ -40,8 +40,8 @@ class AbstractWidget(models.Model):
 
 
 class Widget(AbstractWidget):
-    start_date = models.DateTimeField(null=True, blank=True, help_text="Time at which this widget will turn on")
-    end_date = models.DateTimeField(null=True, blank=True, help_text="Time at which this widget will turn off")
+    start_date = models.DateTimeField(null=True, blank=True)
+    end_date = models.DateTimeField(null=True, blank=True)
 
     @staticmethod
     def autocomplete_search_fields():
@@ -84,8 +84,8 @@ class WidgetItem(models.Model):
     Abstract base class for items that are contained inside widgets
     """
     sort_order = models.IntegerField()
-    start_date = models.DateTimeField(null=True, blank=True, help_text="Time at which this item will turn on")
-    end_date = models.DateTimeField(null=True, blank=True, help_text="Time at which this item will turn off")
+    start_date = models.DateTimeField(null=True, blank=True)
+    end_date = models.DateTimeField(null=True, blank=True)
 
     objects = WidgetItemManager()
 
@@ -114,7 +114,6 @@ class PageToWidget(models.Model):
         return u"{} on {}".format(self.widget, self.page)
 
 
-
 class PageManager(models.Manager):
 
     def __init__(self, filter_defaults=None):
@@ -137,8 +136,7 @@ class Page(models.Model):
     )
 
     name = models.CharField(max_length=255)
-    slug = models.SlugField(null=True, blank=True, choices=SLUG_CHOICES,
-                            help_text="indicates that this page will be returned when a special API endpoint is hit")
+    slug = models.SlugField(null=True, blank=True, choices=SLUG_CHOICES)
     created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
     draft = models.BooleanField(default=False)
@@ -169,7 +167,9 @@ class Page(models.Model):
 
     def add_widget(self, widget, sort_order=None):
         if sort_order is None:
-            sort_order = self.page_to_widgets.aggregate(sort_order=models.Max('sort_order'))['sort_order']
+            sort_order = self.page_to_widgets.aggregate(
+                sort_order=models.Max('sort_order'))['sort_order']
+
             if sort_order is None:
                 sort_order = 0
             else:
@@ -185,7 +185,8 @@ class Page(models.Model):
 
 class PageLinkMixin(models.Model):
     """
-    Mixin which provides the fields necessary to generically link to other page-like content
+    Mixin which provides the fields necessary to generically link to 
+    other page-like content
     """
     link_id = models.PositiveIntegerField(null=True, blank=True)
     link_type = models.ForeignKey(ContentType, null=True, blank=True)
@@ -231,7 +232,7 @@ class AbstractGroupWidget(Widget):
         abstract = True
 
     def item_type(self):
-        raise NotImplementedError("Group widgets need to say what item_type they are")
+        raise NotImplementedError("Group widgets need to say their item_type")
 
     def item_template_name(self):
         return "widgets/items/{}.json".format(self.item_type())
@@ -474,6 +475,7 @@ class AdGroupWidget(AbstractGroupWidget):
 class BannerWidget(Widget, PageLinkMixin):
     image = models.ImageField()
     template_name = "widgets/banner.json"
+    genre = models.OneToOneField(Genre, null=True, blank=True)
 
     class Meta(Widget.Meta):
         verbose_name = "banner"

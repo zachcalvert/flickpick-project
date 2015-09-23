@@ -12,8 +12,6 @@ from django.core.exceptions import ImproperlyConfigured
 
 from .base import *
 
-STATIC_URL = '/static/'
-STATIC_ROOT = '/home/zachc/dev/flickpick-project/staticfiles/'
 DEBUG = False
 TEMPLATE_DEBUG = False
 

@@ -15,6 +15,7 @@ from .base import *
 DEBUG = False
 TEMPLATE_DEBUG = False
 
+STATIC_ROOT = '/home/zachc/dev/flickpick-project/staticfiles/'
 
 def get_env_setting(setting):
     """ Get the environment setting or return exception """

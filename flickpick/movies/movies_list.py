@@ -50,7 +50,6 @@ all_movies = (
 	# 'Sophie Scholl: The Final Days',
 	# 'The Three Burials of Melquiades Estrada ',
 	# 'Mutual Appreciation',
-	# 'Maxed Out',
 	# 'Man Push Cart',
 	# 'The Road To Guantanamo',
 	# 'Akeelah and the Bee ',

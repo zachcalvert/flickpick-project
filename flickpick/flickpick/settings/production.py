@@ -58,7 +58,16 @@ SERVER_EMAIL = EMAIL_HOST_USER
 ########## END EMAIL CONFIGURATION
 
 ########## DATABASE CONFIGURATION
-DATABASES = {}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'moviedb',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
 ########## END DATABASE CONFIGURATION
 
 
@@ -84,5 +93,5 @@ HAYSTACK_SEARCH_RESULTS_LIMIT_PER_CATEGORY = 10
 
 ########## SECRET CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
-SECRET_KEY = get_env_setting('SECRET_KEY')
+SECRET_KEY = 'UEWU48urn5793&sdjjj-du2p}84hgU'
 ########## END SECRET CONFIGURATION

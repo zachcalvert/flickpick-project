@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from django.apps import apps
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
@@ -7,6 +8,7 @@ from django.views.generic import TemplateView
 
 from pages.models import Page, Widget, PageToWidget
 from pages.admin_forms import get_widget_form
+from movies.models import Director, Actor, Genre, Writer, Movie
 
 
 class WidgetFormView(TemplateView):
@@ -19,7 +21,7 @@ class WidgetFormView(TemplateView):
 		prefix = self.request.GET.get('prefix', '__prefix__')
 		if 'widget_id' in self.request.GET:
 			widget = get_object_or_404(Widget, id=self.request.GET['widget_id']).get_subclass()
-			if has_attr(widget, 'get_proxied_widget'):
+			if hasattr(widget, 'get_proxied_widget'):
 				widget = widget.get_proxied_widget()
 			widget_model = type(widget)
 		elif 'widget_type_name' in kwargs:
@@ -69,6 +71,9 @@ class WidgetPageLookupView(TemplateView):
 class GenericObjectLookup(TemplateView):
     template_name = "admin/pages/inline/generic_object_lookup.html"
 
+    def source_movie_options(self, query):
+        return Movie.objects.filter(title__icontains=query)
+
     def source_director_options(self, query):
         return Director.objects.filter(name__icontains=query)
 
@@ -79,7 +84,7 @@ class GenericObjectLookup(TemplateView):
         return Writer.objects.filter(name__icontains=query)
 
     def source_genre_options(self, query):
-        return Genre.objects.filter(genre__icontains=query)
+        return Genre.objects.filter(name__icontains=query)
 
     def source_page_options(self, query):
         return Page.objects.filter(name__icontains=query)

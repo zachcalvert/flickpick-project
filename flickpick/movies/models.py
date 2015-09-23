@@ -121,7 +121,7 @@ class Genre(models.Model):
 		return reverse('genre', kwargs={'genre_id': self.pk})	
 
 	def get_absolute_url(self):
-		return reverse('genre_browse', kwargs={'genre_id': self.pk})
+		return reverse('genre_wrapper', kwargs={'genre_id': self.pk})
 
 	def __unicode__(self):
 		return self.name

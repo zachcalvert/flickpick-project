@@ -7,7 +7,6 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('movies', '0010_remove_genre_featured'),
         ('pages', '0009_auto_20150922_1526'),
     ]
 

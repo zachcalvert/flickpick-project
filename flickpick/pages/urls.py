@@ -14,6 +14,6 @@ urlpatterns = [
 	url(r'^movie/(?P<movie_id>\w+)', login_required(views.MovieWrapperView.as_view()), name='movie_wrapper'),
 	url(r'^person/(?P<person_id>\d+)', login_required(views.PersonWrapperView.as_view()), name='person_wrapper'),
 
-	url(r'^page/(?P<page_slug>.+)/?$', login_required(cache_page(API_CACHE)(views.SlugPageWrapperView.as_view())), name='slug_page_wrapper'),
+	url(r'^(?P<page_slug>.+)/?$', login_required(cache_page(API_CACHE)(views.SlugPageWrapperView.as_view())), name='slug_page_wrapper'),
 	url(r'^(?P<page_path>.+)/?$', login_required(views.WebPageWrapperView.as_view()), name='web_page_wrapper'),
 ]

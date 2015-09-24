@@ -1,5 +1,5 @@
 {% load page_tags %}
-<div class="page-banner" style="margin-left: -20px;margin-right: -20px;">
+<div class="page-banner">
     {% if widget.genre_url %}
         <a href="{{ widget.genre_url|wrapped_url }}">
             {% include 'widgets/image.html' with url=widget.image.url %}

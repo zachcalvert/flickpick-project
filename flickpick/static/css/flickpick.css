@@ -33,8 +33,14 @@ ul {
 }
 
 #widgets-list {
-    margin: 0;
+    margin: 30px 0 10px 0;
     padding:0;
+}
+
+.page-banner {
+    margin-bottom: 7px;
+    max-width: 95%;
+    margin: 0 2.5% 7px 2.5%;
 }
 
 /* gallery widget */

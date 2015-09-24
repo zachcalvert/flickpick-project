@@ -200,6 +200,7 @@ LOCAL_APPS = (
     'accounts',
     'movies',
     'pages',
+    'search',
     'viewing',
 )
 

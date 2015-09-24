@@ -1,0 +1,5 @@
+{% load page_tags %}
+{
+    "id": "{{ person.id }}",
+    "title": "{{ person.name }}"
+}

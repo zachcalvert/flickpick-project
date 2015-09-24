@@ -1,0 +1,6 @@
+{{ object.title }}
+{{ object.year }}
+{% for genre in object.genres.all %}
+	{{ genre }}
+{% endfor %}
+{{ object.notes }}

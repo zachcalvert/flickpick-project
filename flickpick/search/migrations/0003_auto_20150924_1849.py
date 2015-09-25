@@ -7,14 +7,15 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('search', '0001_initial'),
+        ('search', '0002_auto_20141204_1547'),
     ]
 
     operations = [
-        migrations.AlterField(
+        migrations.RemoveField(
             model_name='promotedsearchresult',
             name='banner',
-            field=models.ForeignKey(default=1, to='pages.BannerWidget'),
-            preserve_default=False,
+        ),
+        migrations.DeleteModel(
+            name='PromotedSearchResult',
         ),
     ]

@@ -14,6 +14,8 @@ urlpatterns = [
     url(r'^$', login_required(SlugPageWrapperView.as_view(page_slug='featured')), name='featured_pages_view'),
     url(r'^api/', include('pages.api_urls')),
     url(r'^pages/', include('pages.urls')),
+    url(r'^search/', include('search.urls')),
+
 
     url(r'^accounts/', include('accounts.urls')),
     url(r'^browse/', include('movies.urls')),

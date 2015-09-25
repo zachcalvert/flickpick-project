@@ -3,12 +3,12 @@ from urllib import quote_plus
 from django.core.urlresolvers import reverse
 from django.utils.html import escapejs
 from django.core.cache import cache
-
+from django.views.generic import View
 from haystack.query import SearchQuerySet
 
 from movies.models import Movie, Person
-from display.models import Page
-from display.views import PageView
+from pages.models import Page
+from pages.views import PageView
 from search.forms import FlickpickSearchForm
 from django.conf import settings
 

@@ -1,6 +1,9 @@
+import urllib
+
 from django.db import models
-from django.core.urlresolvers import reverse
 from django.conf import settings
+from django.core.files import File
+from django.core.urlresolvers import reverse
 
 from haystack.query import SearchQuerySet
 
@@ -147,6 +150,8 @@ class Movie(models.Model):
 	on_amazon = models.BooleanField(default=False)
 	on_hulu = models.BooleanField(default=False)
 
+	image = models.ImageField(blank=True)
+
 
 	class Meta():
 		ordering = ('title', '-year')
@@ -160,6 +165,15 @@ class Movie(models.Model):
 
 	def get_absolute_url(self):
 		return reverse('movie_wrapper', kwargs={'movie_id': self.pk})
+
+	def get_image(self):
+		result = urllib.urlretrieve(self.poster_url)
+
+		self.image.save(
+			os.path.basename(self.url),
+			File(open(result[0]))
+		)
+		self.save()
 
 	def related(self, max_results=6):
 		"""

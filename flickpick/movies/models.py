@@ -1,3 +1,4 @@
+import os
 import urllib
 
 from django.db import models
@@ -170,7 +171,7 @@ class Movie(models.Model):
 		result = urllib.urlretrieve(self.poster_url)
 
 		self.image.save(
-			os.path.basename(self.url),
+			os.path.basename(self.poster_url),
 			File(open(result[0]))
 		)
 		self.save()

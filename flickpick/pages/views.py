@@ -158,7 +158,7 @@ class MovieView(View):
             'on_hulu': movie.on_hulu,
 
             'image': {
-                'url': movie.poster_url,
+                'url': movie.image.url,
             },
 
             'genres': [{

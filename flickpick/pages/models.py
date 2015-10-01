@@ -13,7 +13,7 @@ from django.db import models
 from model_utils.managers import InheritanceManager
 
 from viewing.models import Viewing
-from movies.models import Movie, Director, Actor, Writer, Genre
+from movies.models import Movie, Director, Actor, Writer, Genre, Tag
 
 
 class WidgetManager(InheritanceManager):
@@ -400,6 +400,8 @@ class MoviesWidget(CatalogGroupWidget):
     source_actor = models.ForeignKey(Actor, null=True, blank=True)
     source_writer = models.ForeignKey(Writer, null=True, blank=True)
     source_year = models.CharField(max_length=4, null=True, blank=True, choices=MOVIE_YEARS)
+    source_tag = models.ForeignKey(Tag, null=True, blank=True)
+
 
     class Meta:
         verbose_name = "group of movies"
@@ -428,6 +430,8 @@ class MoviesWidget(CatalogGroupWidget):
             movies = movies.filter(writers__in=[self.source_writer.id])
         if self.source_year:
             movies = movies.filter(year=self.source_year)
+        if self.source_tag:
+            movies = movies.filter(tags__name=self.source_tag.name)
 
         if self.new_releases:
             if self.new_releases_window is not None:

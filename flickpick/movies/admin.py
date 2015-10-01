@@ -23,7 +23,7 @@ class MovieAdmin(admin.ModelAdmin):
 		'year',
 		'rated',
 		'tags',
-		'image',
+		'poster_url',
 		'plot',
 		'imdb_id',
 		'notes',

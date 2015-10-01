@@ -157,10 +157,6 @@ class MovieView(View):
             'on_amazon': movie.on_amazon,
             'on_hulu': movie.on_hulu,
 
-            'image': {
-                'url': movie.image.url,
-            },
-
             'genres': [{
                              'name': g.name,
                              'path': g.get_api_url(),
@@ -179,6 +175,10 @@ class MovieView(View):
                        } for w in movie.writers.all()],
             'related': self.get_related(movie),
         }
+        if movie.image: 
+                movie_dict['image'] = {
+                    'url': movie.image.url,
+                },
 
         return movie_dict
 

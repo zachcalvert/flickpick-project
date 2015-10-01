@@ -1,6 +1,6 @@
 {% load page_tags %}
 
-{% if movie.image.url %}
+{% if movie.image %}
     <div class="movie-image-wrap">
         <a href="{{ movie.path|wrapped_url }}">
             <img class="movie-image" src="{{ movie.image.url }}" 

@@ -9,6 +9,12 @@ from django.core.urlresolvers import reverse
 from haystack.query import SearchQuerySet
 
 
+class Tag(models.Model):
+	name = models.CharField(max_length=25)
+
+	def __unicode__(self):
+		return self.name
+
 class Person(models.Model):
 	name = models.CharField(max_length=100)
 
@@ -153,6 +159,8 @@ class Movie(models.Model):
 
 	image = models.ImageField(blank=True)
 
+	tags = models.ManyToManyField(Tag)
+
 
 	class Meta():
 		ordering = ('title', '-year')
@@ -205,3 +213,4 @@ class Movie(models.Model):
 			related_movies.append(movie)
 		return related_movies
 		
+

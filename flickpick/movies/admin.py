@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django import forms
 
-from models import Movie, Director, Actor, Writer, Genre, Person
+from models import Movie, Director, Actor, Writer, Genre, Person, Tag
+
 
 class MovieForm(forms.ModelForm):
     notes = forms.CharField(widget=forms.Textarea)
@@ -11,14 +12,17 @@ class MovieForm(forms.ModelForm):
     class Meta:
         model = Movie
         fields = '__all__'
+        widgets = {
+        	'tag'
+        }
 
 
 class MovieAdmin(admin.ModelAdmin):
 	fields = (
 		'title',
 		'year',
-		'released',
 		'rated',
+		'tags',
 		'genres',
 		'directors',
 		'plot',
@@ -46,7 +50,11 @@ class ActorAdmin(admin.ModelAdmin):
 class WriterAdmin(admin.ModelAdmin):
 	list_display = ('person',)
 
+class TagAdmin(admin.ModelAdmin):
+	list_display = ('name',)
 
+
+admin.site.register(Tag, TagAdmin)
 admin.site.register(Director, DirectorAdmin)
 admin.site.register(Actor, ActorAdmin)
 admin.site.register(Writer, WriterAdmin)

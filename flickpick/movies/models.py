@@ -159,7 +159,7 @@ class Movie(models.Model):
 
 	image = models.ImageField(blank=True)
 
-	tags = models.ManyToManyField(Tag)
+	tags = models.ManyToManyField(Tag, blank=True, null=True)
 
 
 	class Meta():

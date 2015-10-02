@@ -32,7 +32,7 @@ class MovieAdmin(admin.ModelAdmin):
 		'on_hulu',
 	)
 
-	list_display = ('title', 'year', 'plot',)
+	list_display = ('title', 'year', 'plot', 'image',)
 	ordering = ('title',)
 	form = MovieForm
 

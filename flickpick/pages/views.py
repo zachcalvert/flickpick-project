@@ -175,10 +175,10 @@ class MovieView(View):
                        } for w in movie.writers.all()],
             'related': self.get_related(movie),
         }
+        
         if movie.image: 
-                movie_dict['image'] = {
-                    'url': movie.image.url,
-                },
+            movie_dict['image_url'] = movie.image.url
+ 
 
         return movie_dict
 

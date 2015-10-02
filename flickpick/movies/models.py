@@ -122,7 +122,7 @@ class Genre(models.Model):
 				'title': m.title,
 				'path': m.get_absolute_url(),
 				'image': {
-                	'url': m.poster_url,
+                	'url': m.image.url,
                 },
                 'year': m.year,
 			} for m in self.movie_set.all()]
